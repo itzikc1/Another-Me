@@ -119,10 +119,11 @@ public class MySql implements MySqlInterface {
 		java.sql.Timestamp GpsDate = new java.sql.Timestamp(gps.getGpsDate()
 				.getTime());
 
-		String sql = "INSERT INTO " + this.settings
+		String sql = "INSERT INTO " + this.gps
 				+ " (ID,Date,X,Y,PersonId) VALUES ('" + gps.getIdGps() + "','"
 				+ GpsDate + "','" + gps.getX() + "','" + gps.getY() + "','"
 				+ gps.getPerson().getPersonId() + "')";
+		System.out.println(sql);
 		connectToMysql.setSQL(sql);
 
 	}
@@ -240,12 +241,12 @@ public class MySql implements MySqlInterface {
 	@Override
 	public Solution getSolutionForTask(Task taskId) {
 		String sql = "SELECT* FROM " + this.solution + " where TaskId= " + "'"
-				+ taskId + "'";
+				+ taskId.getIdTask() + "'";
+		//System.out.println(sql);
 		ResultSet result = connectToMysql.getSql(sql);
 		Solution solution = null;
 		try {
 			result.next();
-			
 			solution = new Solution(result.getDouble("ID"), taskId.getPerson(),
 					taskId, getSms(result.getDouble("Sms")),
 					getPopUp(result.getDouble("PopUp")),
@@ -286,10 +287,11 @@ public class MySql implements MySqlInterface {
 
 	@Override
 	public Gps getGps(String personId) {
-	
-		//////last loacation date ////////////////////////////////////////////////to do
-		String sql = "SELECT* FROM " + this.gps + " where ID= " + "'"
-				+ personId + "'";
+
+	String sql ="SELECT * FROM Gps  INNER JOIN(SELECT PersonId, MAX(Date) AS MaxDateTime FROM Gps where PersonId= '"+personId+"') grouped ON Gps.PersonId = grouped.PersonId AND Gps.Date = grouped.MaxDateTime";	
+				
+//		String sql = "SELECT* FROM " + this.gps + " where ID= " + "'"
+//				+ personId + "'";
 		ResultSet result = connectToMysql.getSql(sql);
 		Gps gps = null;
 		try {
@@ -319,7 +321,7 @@ public class MySql implements MySqlInterface {
 			result.next();
 			java.util.Date dateTimeRegister = new java.sql.Timestamp(result
 					.getTimestamp("DateTimeRegister").getTime());
-			System.out.println(result.getTimestamp("DateTimeRegister"));
+			//System.out.println(result.getTimestamp("DateTimeRegister"));
 			settings = new Settings(result.getDouble("ID"),
 					result.getString("PhoneNumber"),
 					result.getString("Password"), dateTimeRegister,
@@ -528,20 +530,22 @@ public class MySql implements MySqlInterface {
 
 	@Override
 	public ArrayList<Task> getAllTasksWithDate(Date date) {
-
+        //System.out.println("check Task time");
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		Date ddate = new Date();//from now
 		java.sql.Timestamp Date = new java.sql.Timestamp(date.getTime());
 		java.sql.Timestamp DDate = new java.sql.Timestamp(ddate.getTime());
 
 		String sql = "SELECT* FROM " + this.task + " where Start BETWEEN '"
-				+ Date.toString() + "' AND '" + ddate.toString() + "'";
+				+ DDate.toString() + "' AND '" + Date.toString() + "'";
+		//System.out.println(sql);
 		ResultSet result = connectToMysql.getSql(sql);
 
 		ArrayList<Task> task = new ArrayList<Task>();
 		try {
+	
 			while (result.next()) {
-				Task t;
+				Task t =null;
 				String taskText = result.getString("TaskText");
 				java.util.Date end = new java.sql.Timestamp(result.getTimestamp(
 						"End").getTime());
@@ -556,7 +560,7 @@ public class MySql implements MySqlInterface {
 				 if(t.getWhatToDo()!=1){
 				 t.setSolution(getSolutionForTask(t));
 				 }
-				 task.add(t);
+			 task.add(t);
 			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -614,7 +618,7 @@ public class MySql implements MySqlInterface {
 			sql = "SELECT* FROM " + this.sms + " where ID= " + "'"
 					+ sms + "'";
 		
-		System.out.println(sql);
+		//System.out.println(sql);
 		ResultSet result = connectToMysql.getSql(sql);
 		SMS smsNew = null;
 		try {

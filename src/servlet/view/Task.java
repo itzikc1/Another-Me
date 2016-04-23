@@ -33,6 +33,7 @@ public class Task extends HttpServlet {
 	public Task() {
 		super();
 		view = new ServlerViewInterface();
+		
 	}
 
 	/**
@@ -57,6 +58,7 @@ public class Task extends HttpServlet {
 		//String Type = request.getParameter("Type").toString();
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		Date DateTimeStart = new Date();
+		DateTimeStart.setMinutes(DateTimeStart.getMinutes()+12);
 		Date DateTimeEnd = new Date();
         DateTimeEnd.setMonth(4);
         

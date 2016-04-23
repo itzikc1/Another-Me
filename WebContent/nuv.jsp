@@ -23,6 +23,7 @@
      <li role="presentation"><a href="AddTask.jsp">Task</a></li>
      <li role="presentation"><a href="AddSmsToDefault.jsp">Add SMS</a></li>
      <li role="presentation"><a href="AddPopUpToDefault.jsp">Add PopUp</a></li>
+      <li role="presentation"><a href="AddGps.jsp">Add Location</a></li>
       <li role="presentation"><a href="GetSms.jsp">Get SMS</a></li>
         <li role="presentation"><a href="GetPopUp.jsp">Get PopUp</a></li>
          <li role="presentation"><a href="GetPerson.jsp">Get Person</a></li>

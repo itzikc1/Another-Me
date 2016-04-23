@@ -3,6 +3,7 @@ package server.controller;
 import java.util.ArrayList;
 import java.util.Date;
 
+import server.model.ModelController;
 import server.model.ModelDb;
 import entities.GPS.Gps;
 import entities.Task.PopUp;
@@ -12,7 +13,7 @@ import entities.sms.SMS;
 
 public class Controller implements ControllerInterface {
 
-	 ModelDb modelDb = new ModelDb();
+	ModelController modelDb = new ModelController();
 
 	
 	@Override

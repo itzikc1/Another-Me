@@ -13,7 +13,7 @@ import entities.person.Person;
 import entities.person.Settings;
 import entities.sms.SMS;
 
-public class ModelDb implements ModelDbInterface,ControllerInterface {
+public class ModelDb implements ModelDbInterface {
 
 	 MySql sql = new MySql();
 	//public Model model;
@@ -233,92 +233,92 @@ public class ModelDb implements ModelDbInterface,ControllerInterface {
 		return null;
 	}
 
-	 @Override
-	 public void addSmsToDefaultFromView(boolean SmsTamplates, String msg,
-	 String senderId, String personId) {
-	 Double num;
-	 num=numberOfColumn(sms,"ID");
-	
-	 SMS sms = new SMS(num, SmsTamplates, msg, getPerson(senderId), null,
-	 getPerson(personId));
-	 addSmsToDefault(sms, sms.getPerson());
-	 }
-	
-	 @Override
-	 public void addNewGpsLocationFromView(Double x, Double y, Date gpsDate,
-	 String personId) {
-	 Double num;
-	 num=numberOfColumn(gps,"ID");
-	
-	 Gps gps = new Gps(num, x, y, gpsDate, getPerson(personId));
-	 addNewGpsLocation(gps, gps.getPerson());
-	 }
-	
-	 @Override
-	 public void sendTaskWithSolution(Task task) {
-	
-	
-	 }
-	
-	 @Override
-	 public Gps GetGpsLastTime(String personId) {
-	 ////////////// my be
-	 return null;
-	 }
-	 @Override
-	 public ArrayList<Task> getAllTaskFromView(String personId) {
-	 return getTasks(personId);
-	 }
-	 @Override
-	 public void addNewPersonFromView(String personId, String password,
-	 Date DateTimeRegister, String mail, String phoneNumber) {
-	
-	 Double num;
-	 num=numberOfColumn(settings,"ID");
-	
-	 Settings settings = new Settings(num, phoneNumber, password,
-	 DateTimeRegister, mail, personId);
-	 Person person = new Person(personId, settings);
-	 addPerson(person);
-	
-	 }
-	
-	 @Override
-	 public void addNewTaskFromView(String personId, String taskText,
-	 Date start, Date end, int platform,String withPerson,Double popUp,Double
-	 sms,int action) {
-	 Double num;
-	 num=numberOfColumn(task,"ID");
-	 Person p = getPerson(personId);
-	 Person with = getPerson(withPerson);
-	
-	 Task task = new Task(num,p, taskText, start, end,
-	"algo", action, platform);
-	 //need to start the solution with algo
-	 //Default solution:
-	 task.setWithPerson(with);
-	
-	 Double numm;
-	 numm=numberOfColumn(solution,"ID");
-	 Solution solution=new Solution(numm, task.getPerson(), task,
-	 getSms(sms),getPopUp(popUp),action);
-	 solution.setToDo(task.getStart());
-	 task.setSolution(solution);
-	
-	 addNewTask(task, task.getPerson());
-	 }
-	
-	 @Override
-	 public void addPopUpToDefaultFromView(String text, boolean
-	 popUpTamplates,String senderId,
-	 String personId) {
-	 Double num;
-	 num=numberOfColumn(popUp,"ID");
-	
-	 PopUp popUp = new PopUp(num, text, popUpTamplates,getPerson(senderId),
-	 getPerson(personId));
-	 addPopUpToDefault(popUp, popUp.getPersonId());
-	
-	 }
+//	 @Override
+//	 public void addSmsToDefaultFromView(boolean SmsTamplates, String msg,
+//	 String senderId, String personId) {
+//	 Double num;
+//	 num=numberOfColumn(sms,"ID");
+//	
+//	 SMS sms = new SMS(num, SmsTamplates, msg, getPerson(senderId), null,
+//	 getPerson(personId));
+//	 addSmsToDefault(sms, sms.getPerson());
+//	 }
+//	
+//	 @Override
+//	 public void addNewGpsLocationFromView(Double x, Double y, Date gpsDate,
+//	 String personId) {
+//	 Double num;
+//	 num=numberOfColumn(gps,"ID");
+//	
+//	 Gps gps = new Gps(num, x, y, gpsDate, getPerson(personId));
+//	 addNewGpsLocation(gps, gps.getPerson());
+//	 }
+//	
+//	 @Override
+//	 public void sendTaskWithSolution(Task task) {
+//	
+//	
+//	 }
+//	
+//	 @Override
+//	 public Gps GetGpsLastTime(String personId) {
+//	 ////////////// my be
+//	 return null;
+//	 }
+//	 @Override
+//	 public ArrayList<Task> getAllTaskFromView(String personId) {
+//	 return getTasks(personId);
+//	 }
+//	 @Override
+//	 public void addNewPersonFromView(String personId, String password,
+//	 Date DateTimeRegister, String mail, String phoneNumber) {
+//	
+//	 Double num;
+//	 num=numberOfColumn(settings,"ID");
+//	
+//	 Settings settings = new Settings(num, phoneNumber, password,
+//	 DateTimeRegister, mail, personId);
+//	 Person person = new Person(personId, settings);
+//	 addPerson(person);
+//	
+//	 }
+//	
+//	 @Override
+//	 public void addNewTaskFromView(String personId, String taskText,
+//	 Date start, Date end, int platform,String withPerson,Double popUp,Double
+//	 sms,int action) {
+//	 Double num;
+//	 num=numberOfColumn(task,"ID");
+//	 Person p = getPerson(personId);
+//	 Person with = getPerson(withPerson);
+//	
+//	 Task task = new Task(num,p, taskText, start, end,
+//	"algo", action, platform);
+//	 //need to start the solution with algo
+//	 //Default solution:
+//	 task.setWithPerson(with);
+//	
+//	 Double numm;
+//	 numm=numberOfColumn(solution,"ID");
+//	 Solution solution=new Solution(numm, task.getPerson(), task,
+//	 getSms(sms),getPopUp(popUp),action);
+//	 solution.setToDo(task.getStart());
+//	 task.setSolution(solution);
+//	
+//	 addNewTask(task, task.getPerson());
+//	 }
+//	
+//	 @Override
+//	 public void addPopUpToDefaultFromView(String text, boolean
+//	 popUpTamplates,String senderId,
+//	 String personId) {
+//	 Double num;
+//	 num=numberOfColumn(popUp,"ID");
+//	
+//	 PopUp popUp = new PopUp(num, text, popUpTamplates,getPerson(senderId),
+//	 getPerson(personId));
+//	 addPopUpToDefault(popUp, popUp.getPersonId());
+//	
+//	 }
 
 }

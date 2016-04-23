@@ -49,7 +49,7 @@ public class ServlerViewInterface implements ViewInterface{
 	@Override
 	public void addNewGpsLocationFromView(Double x, Double y, Date gpsDate,
 			String personId) {
-		// TODO Auto-generated method stub
+		view.addNewGpsLocationFromView(x, y, gpsDate, personId);
 		
 	}
 
