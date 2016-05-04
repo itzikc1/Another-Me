@@ -51,14 +51,14 @@ public class Task extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		String personId = request.getParameter("personId").toString();
 		String txt = request.getParameter("txt").toString();
 		//String Type = request.getParameter("Type").toString();
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		Date DateTimeStart = new Date();
-		DateTimeStart.setMinutes(DateTimeStart.getMinutes()+12);
+		DateTimeStart.setMinutes(DateTimeStart.getMinutes()+8);
 		Date DateTimeEnd = new Date();
         DateTimeEnd.setMonth(4);
         

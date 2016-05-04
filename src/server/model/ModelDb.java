@@ -16,9 +16,7 @@ import entities.sms.SMS;
 public class ModelDb implements ModelDbInterface {
 
 	 MySql sql = new MySql();
-	//public Model model;
 
-	
 
 	String person = "Person";
 	String sms = "Sms";

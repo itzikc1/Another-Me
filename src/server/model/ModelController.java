@@ -14,6 +14,7 @@ import entities.sms.SMS;
 
 public class ModelController implements ModelControllerInterface {
 	ModelDb modelDb = new ModelDb();
+	Model model = new Model();
 	
 	String person = "Person";
 	String sms = "Sms";
@@ -90,7 +91,9 @@ public class ModelController implements ModelControllerInterface {
 	 //need to start the solution with algo
 	 //Default solution:
 	 task.setWithPerson(with);
-	
+		String input="am ללכת לסרט בארלוזורוב רמת גן ן  3   בשעה   1400";
+	model.Algo(input);
+	 
 	 Double numm;
 	 numm=modelDb.numberOfColumn(solution,"ID");
 	 Solution solution=new Solution(numm, task.getPerson(), task,

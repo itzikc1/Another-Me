@@ -1,5 +1,6 @@
 package server.model;
 
+
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,10 +11,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.ServletContext;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.omg.CORBA.portable.InputStream;
 
 import entities.GPS.Gps;
 import entities.Solution.Solution;
@@ -23,8 +27,19 @@ public class Model implements ModelInterface {
 
 
 
-	 ModelController modelController = new ModelController();
+	// ModelController modelController = new ModelController();
 	 ModelDb modelDb = new ModelDb();
+	 
+	 static String dictionaryLocationCityTwoRows="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/israelCity.txt";
+	 static String dictionaryLocationStreetCities="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/israelStreetsCities.txt";
+	 static	String dictionaryMissions="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/missions.txt";
+	 static	String clean="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/hebrewLanguage.txt";
+	
+
+	 SpellingCorrector algo=  new SpellingCorrector(dictionaryLocationCityTwoRows, dictionaryLocationStreetCities, dictionaryMissions,clean);;
+
+			
+		
 	// after algo
 	@Override
 	public Task TaskMaker(String personId, String taskText, Date start,
@@ -66,7 +81,7 @@ public class Model implements ModelInterface {
 	public int CalculatorTime(Task task, Gps gps) {
 		
 		// = task.getAddress();
-		 String locationTask="��� ���� 20 ����� ����� �����";
+		 String locationTask="אלי ויזל 20 ראשון לציון ישראל";
 		Double locationGpsX = gps.getX();
 		Double locationGpsY = gps.getY();
 		
@@ -90,7 +105,7 @@ public class Model implements ModelInterface {
 
 	@Override
 	public void DoSolution(Task task) {
-		modelController.sendTaskWithSolution(task);
+		//modelController.sendTaskWithSolution(task);
 
 	}
 
@@ -177,17 +192,31 @@ public class Model implements ModelInterface {
 		return timeToArriving;
 
 	}
-
+//dataForAlgorithm/
 	@Override
-	public String Algo(String task) {
-		// TODO Auto-generated method stub
-		return "null";
+	public String [] Algo(String task) {
+
 		
+		//String input="am ללכת לסרט בארלוזורוב רמת גן ן  בשעה 2";
+		try{
+		String[] features =new String[4];
+		System.out.println(task);
+		features=algo.parse(task);
+		for(String feature:features)
+			System.out.println(feature);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String[]  st = null ;
+		return st;		
 	}
 
 	@Override
 	public void run() {
 		System.out.println("run Background Job Manager!!!!");
+		//String input="am ללכת לסרט בארלוזורוב רמת גן ן  בשעה 2";
+		//Algo(input);
 		CheckSolution();
 		
 	}
@@ -202,7 +231,7 @@ public class Model implements ModelInterface {
 		Date dateTask= task.getStart();
 		dateTask.setMinutes(dateTask.getMinutes()-task.getSolution().getTimeToArriving());
 		
-		System.out.println(dateNow.toString());
+		//System.out.println(dateNow.toString());
 		//System.out.println(dateTask);
 		
 		if( dateTask.before(dateNow)){	

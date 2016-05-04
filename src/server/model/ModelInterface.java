@@ -23,7 +23,7 @@ public interface ModelInterface extends Runnable {
    
     public int CalculatorTimeFromJson(String task,String gps,Double x,Double y);
     
-    public String Algo(String task);//need to change with Algo
+    public String[] Algo(String task);//need to change with Algo
     
     public int TimeToGo(Task task,int timeToArrive);
 }

@@ -1,11 +1,14 @@
 
 
-add the time to arriving in task and db
+do commit
 
+
+need to get hebtow from jsp
+need to conect the algo to model finel
+need to delete all the syso
 
 
 get all the array list
-change in person or task
 enter the algo 
 get html and get data from that 
 pic to siring and revers

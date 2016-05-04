@@ -50,9 +50,6 @@ public class PostPersonServlet extends HttpServlet {
 
 		String personId = request.getParameter("name").toString();
 		Person person = view.getPersonFromView(personId);
-
-		// response.setContentType("text/html;charset=UTF-8");
-		// String nuv=response.encodeURL("nuv.jsp");
 	
 		String Mail = person.getSettings().getMail();
 		String PhoneNumber = person.getSettings().getPhoneNumber();
@@ -64,9 +61,6 @@ public class PostPersonServlet extends HttpServlet {
 		Boolean Solution = person.getSettings().getSolution();
 		Boolean Gps = person.getSettings().getGps();
 				
-//		request.setAttribute("PersonId",personId);
-//		request.getRequestDispatcher("GetPerson.jsp").forward(request, response); 
-
  		PrintWriter out = response.getWriter();
 
 		out.println("<html><body>");
@@ -86,33 +80,6 @@ public class PostPersonServlet extends HttpServlet {
 	}
 
 }
-
-//request.setAttribute("Age",Age);
-//request.getRequestDispatcher("GetPerson.jsp").forward(request, response); 
-//request.setAttribute("PhoneNumber",PhoneNumber);
-//request.getRequestDispatcher("GetPerson.jsp").forward(request, response); 
-//request.setAttribute("DateTimeRegister",DateTimeRegister);
-//request.getRequestDispatcher("GetPerson.jsp").forward(request, response); 
-//request.setAttribute("FullName",FullName);
-//request.getRequestDispatcher("GetPerson.jsp").forward(request, response); 
-//request.setAttribute("PopUps",PopUps);
-//request.getRequestDispatcher("GetPerson.jsp").forward(request, response); 
-//request.setAttribute("Sms",Sms);
-//request.getRequestDispatcher("GetPerson.jsp").forward(request, response); 
-//request.setAttribute("Solution",Solution);
-//request.getRequestDispatcher("GetPerson.jsp").forward(request, response); 
-//request.setAttribute("Gps",Gps);
-//request.getRequestDispatcher("GetPerson.jsp").forward(request, response); 
-
-//String PhoneNumber = (String)request.getAttribute("PhoneNumber");
-//int Age = (int)request.getAttribute("Age");
-////Date DateTimeRegister = (Date)request.getAttribute("DateTimeRegister");
-//String FullName = (String)request.getAttribute("FullName");
-//		Boolean PopUps = (Boolean)request.getAttribute("PopUps");
-//		Boolean Sms = (Boolean)request.getAttribute("Sms");
-//		Boolean Solution = (Boolean)request.getAttribute("Solution");
-//		Boolean Gps = (Boolean)request.getAttribute("Gps");
-
 
 
 //System.out.println(PhoneNumber);
