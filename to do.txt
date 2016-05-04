@@ -1,14 +1,14 @@
 
 
-do commit
 
 
-need to get hebtow from jsp
+
+
+
+
 need to conect the algo to model finel
-need to delete all the syso
-
-
 get all the array list
-enter the algo 
 get html and get data from that 
-pic to siring and revers
+pic add name
+what to do with constractor
+how to call some txt file location

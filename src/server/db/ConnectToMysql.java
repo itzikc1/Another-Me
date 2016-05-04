@@ -15,11 +15,11 @@ public class ConnectToMysql {
 
 	public static Connection getConnection() throws Exception {
 		String driver = "com.mysql.jdbc.Driver";
-		String url = "jdbc:mysql://localhost/anotherme";
+		String url = "jdbc:mysql://localhost/anotherme?useUnicode=yes&characterEncoding=UTF-8";
 		String username = "root";
 		String password = "";
 		Class.forName(driver);
-		Connection conn = DriverManager.getConnection(url, username, password);
+		Connection conn = DriverManager.getConnection(url,username, password);
 		return conn;
 	}
 
@@ -29,10 +29,7 @@ public class ConnectToMysql {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-//			System.out.println(st);
 			stmt.executeUpdate(st);
-//			System.out
-//					.println("CreateEmployeeTableMySQL: main(): table created.");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -66,7 +63,7 @@ public class ConnectToMysql {
 			rs = statement.executeQuery(st);
 //			System.out.println("Result: , "
 //					+ rs.toString());
-
+			//conn.close();
 			return rs;
 		} catch (ClassNotFoundException e) {
 			System.out.println("error: failed to load MySQL driver.");
@@ -77,7 +74,7 @@ public class ConnectToMysql {
 		} catch (Exception e) {
 			System.out.println("other error:");
 			e.printStackTrace();
-		} 
+		}
 		return rs;
 		
 	}

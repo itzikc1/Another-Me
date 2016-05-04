@@ -17,15 +17,14 @@ import java.util.regex.Pattern;
 
 import edu.stanford.nlp.util.StringUtils;
 
-public class SpellingCorrector {
+public class SpellingCorrector   {
 
 	public static Map<String, Integer> dictionary = new HashMap<String, Integer>();
 	public static Map<String, Integer> missionsDictionary = new HashMap<String, Integer>();
 	public static Map<String, Integer> normalization = new HashMap<String, Integer>();
 	public static List<String> towRows = new ArrayList<String>();
-	
-	
-	public SpellingCorrector(String dictionaryLocationCityTwoRows,
+
+	public  SpellingCorrector(String dictionaryLocationCityTwoRows,
 			String dictionaryLocationStreetCities, String dictionaryMissions,
 			String clean) {
 		try {
@@ -38,6 +37,8 @@ public class SpellingCorrector {
 
 	}
 
+  
+	    
 	public static String correct(String word) throws IOException {
 
 		if (dictionary.containsKey(word))
@@ -194,35 +195,26 @@ public class SpellingCorrector {
 		return output;
 	}
 
-	
-	
-	
 	public static void readFromTexts(String dictionaryLocationCityTwoRows,
 			String dictionaryLocationStreetCities, String dictionaryMissions,
 			String clean) throws IOException {
 		String brLine;
 		System.out.println("read from file!!!");
-		//BufferedReader br = new BufferedReader(new FileReader(dictionaryLocationCityTwoRows));
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				new FileInputStream(dictionaryLocationCityTwoRows), "UTF8"));
 
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(dictionaryLocationCityTwoRows), "UTF8"));
-		
 		while ((brLine = br.readLine()) != null) {
-			
-			//System.out.println(brLine);
-			
+
 			towRows.add(brLine);
-			
-			
+
 		}
 		br.close();
-	
-		//br = new BufferedReader(new FileReader(clean));
-		br = new BufferedReader(new InputStreamReader(new FileInputStream(clean), "UTF8"));
-		
+
+		br = new BufferedReader(new InputStreamReader(
+				new FileInputStream(clean), "UTF8"));
+
 		while ((brLine = br.readLine()) != null) {
-			//System.out.println(brLine);
-			
+
 			normalization.put(brLine.toLowerCase(), 1);
 		}
 		br.close();
@@ -230,21 +222,18 @@ public class SpellingCorrector {
 		int numTodo;
 		String mission = "";
 
-		//br = new BufferedReader(new FileReader(dictionaryLocationStreetCities));
+		br = new BufferedReader(new InputStreamReader(new FileInputStream(
+				dictionaryLocationStreetCities), "UTF8"));
 
-		br = new BufferedReader(new InputStreamReader(new FileInputStream(dictionaryLocationStreetCities), "UTF8"));
-		
 		while ((brLine = br.readLine()) != null) {
-			//System.out.println(brLine);
 			dictionary.put(brLine.toLowerCase(), 1);
 		}
 		br.close();
 
-		br = new BufferedReader(new InputStreamReader(new FileInputStream(dictionaryMissions), "UTF8"));
-		
-		//br = new BufferedReader(new FileReader(dictionaryMissions));
+		br = new BufferedReader(new InputStreamReader(new FileInputStream(
+				dictionaryMissions), "UTF8"));
+
 		while ((brLine = br.readLine()) != null) {
-			//System.out.println(brLine);
 			for (int i = 0; i < brLine.length(); i++)
 				if (brLine.charAt(i) == ' ') {
 					numTodo = brLine.charAt(i + 1);

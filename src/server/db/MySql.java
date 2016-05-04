@@ -163,8 +163,6 @@ public class MySql implements MySqlInterface {
 				+ task.getSolution().getAction() + "','"+task.getSolution().getTimeToArriving() +  "')";
 		connectToMysql.setSQL(sql);
 
-		// task.getSolution().getSms().getIdSMS()
-		// task.getSolution().getPopUp().getIdPopUp()
 	}
 
 	@Override

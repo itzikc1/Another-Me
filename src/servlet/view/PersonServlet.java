@@ -61,7 +61,7 @@ public class PersonServlet extends HttpServlet  {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-
+		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String personId = request.getParameter("personId").toString();
 		String password = request.getParameter("password").toString();

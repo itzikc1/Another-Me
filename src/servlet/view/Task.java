@@ -2,6 +2,7 @@ package servlet.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -52,10 +53,10 @@ public class Task extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String personId = request.getParameter("personId").toString();
 		String txt = request.getParameter("txt").toString();
-		//String Type = request.getParameter("Type").toString();
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		Date DateTimeStart = new Date();
 		DateTimeStart.setMinutes(DateTimeStart.getMinutes()+8);
@@ -68,15 +69,9 @@ public class Task extends HttpServlet {
         int platform=7;
         String withPerson = "eldar";
         
-		System.out.println(DateTimeStart);
-		System.out.println(DateTimeEnd);
-       // System.out.println(Type);
 		view.addNewTaskFromView(personId, txt, DateTimeStart, DateTimeEnd, platform,withPerson,popUp,sms,action);
 		 response.sendRedirect("nuv.jsp");
-//		 String nuv=response.encodeURL("nuv.jsp");
-//		out.println("<html><body>");
-//		out.println("<li>Buy items :<a href=" + nuv + "> here </a>");
-//		out.println("</body></html>");
+
 	}
 
 }

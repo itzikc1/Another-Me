@@ -2,6 +2,7 @@ package server.model;
 
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,15 +28,15 @@ public class Model implements ModelInterface {
 
 
 
-	// ModelController modelController = new ModelController();
-	 ModelDb modelDb = new ModelDb();
+	//ModelControllerInterface modelController = new ModelController();
+	 ModelDbInterface modelDb = new ModelDb();
 	 
 	 static String dictionaryLocationCityTwoRows="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/israelCity.txt";
 	 static String dictionaryLocationStreetCities="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/israelStreetsCities.txt";
 	 static	String dictionaryMissions="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/missions.txt";
 	 static	String clean="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/hebrewLanguage.txt";
 	
-
+	 private static SpellingCorrector singletonInstance;
 	 SpellingCorrector algo=  new SpellingCorrector(dictionaryLocationCityTwoRows, dictionaryLocationStreetCities, dictionaryMissions,clean);;
 
 			
@@ -56,23 +57,47 @@ public class Model implements ModelInterface {
 		
 		//5 hours before we check the time to arriving
 		date.setHours(date.getHours() +5);
-		
+		System.out.println("connect");
 		ArrayList<Task> task = getTaskOnTime(date);
 		for (int i = 0; i < task.size(); i++) {
 			if (task.get(i).getWhatToDo() != 1) {
+				switch (task.get(i).getWhatToDo()) {
+				case 2:
+					// send ask what to do
+					break;
 
-				Gps gps = getLastLocation(task.get(i).getPerson().getPersonId());
+				case 3:
+					//send popup
+					break;
 
-				int timeToArrive = CalculatorTime(task.get(i), gps);
-				//Check the time to came to task
-				//System.out.println(task.get(i).getSolution().getTimeToArriving());
-				///////////////////////////////////////
-				
-				int timeToGo =  TimeToGo(task.get(i),timeToArrive);
-//				if (timeToArrive < task.get(i).getSolution().getTimeToArriving()) {
-//					
-//					DoSolution(task.get(i));
-//				}
+				case 4:
+					//send sms
+					break;
+
+				case 5:
+					//buy ticket
+					break;
+
+				case 6:
+					//go to shoping
+					break;
+				case 7:
+					//send sms to babysiter
+					break;
+				case 8:
+					if(task.get(i).getAddress()!=null){
+						Gps gps = getLastLocation(task.get(i).getPerson().getPersonId());
+
+						int timeToArrive = CalculatorTime(task.get(i), gps);
+						
+						int timeToGo =  TimeToGo(task.get(i),timeToArrive);
+					}
+					break;
+
+				default:
+					break;
+				}
+
 			}
 		}
 	}
@@ -80,8 +105,9 @@ public class Model implements ModelInterface {
 	@Override
 	public int CalculatorTime(Task task, Gps gps) {
 		
-		// = task.getAddress();
-		 String locationTask="אלי ויזל 20 ראשון לציון ישראל";
+		String locationTask= task.getAddress();
+		
+		//String locationTask="אלי ויזל 20 ראשון לציון ישראל";
 		Double locationGpsX = gps.getX();
 		Double locationGpsY = gps.getY();
 		
@@ -195,15 +221,16 @@ public class Model implements ModelInterface {
 //dataForAlgorithm/
 	@Override
 	public String [] Algo(String task) {
-
-		
-		//String input="am ללכת לסרט בארלוזורוב רמת גן ן  בשעה 2";
+// the string is: location, time, am/pm, action
 		try{
 		String[] features =new String[4];
 		System.out.println(task);
 		features=algo.parse(task);
-		for(String feature:features)
+	
+		for(String feature:features){
 			System.out.println(feature);
+		}
+		return features;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,14 +238,24 @@ public class Model implements ModelInterface {
 		String[]  st = null ;
 		return st;		
 	}
+	
+	
 
 	@Override
 	public void run() {
 		System.out.println("run Background Job Manager!!!!");
-		//String input="am ללכת לסרט בארלוזורוב רמת גן ן  בשעה 2";
-		//Algo(input);
 		CheckSolution();
 		
+	
+		
+//		File myFile = new File("MyFile.txt");  //or "user.home"
+//		try {
+//			myFile.createNewFile();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
 	}
 
 	@Override
@@ -230,12 +267,9 @@ public class Model implements ModelInterface {
 		
 		Date dateTask= task.getStart();
 		dateTask.setMinutes(dateTask.getMinutes()-task.getSolution().getTimeToArriving());
-		
-		//System.out.println(dateNow.toString());
-		//System.out.println(dateTask);
-		
+				
 		if( dateTask.before(dateNow)){	
-			System.out.println("now need to do "+task.getIdTask());
+			System.out.println("now need to do ");
 			DoSolution(task);
 		}
 		return 0;

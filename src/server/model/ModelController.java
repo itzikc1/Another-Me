@@ -13,8 +13,8 @@ import entities.person.Settings;
 import entities.sms.SMS;
 
 public class ModelController implements ModelControllerInterface {
-	ModelDb modelDb = new ModelDb();
-	Model model = new Model();
+	ModelDbInterface modelDb = new ModelDb();
+	ModelInterface model = new Model();
 	
 	String person = "Person";
 	String sms = "Sms";
@@ -85,19 +85,16 @@ public class ModelController implements ModelControllerInterface {
 	 num=modelDb.numberOfColumn(task,"ID");
 	 Person p = getPerson(personId);
 	 Person with = getPerson(withPerson);
-	
+	 String [] algo= model.Algo(taskText);
 	 Task task = new Task(num,p, taskText, start, end,
-	"ALGO", action, platform);
-	 //need to start the solution with algo
-	 //Default solution:
+	algo[0], Integer.parseInt(algo[3]), platform);
 	 task.setWithPerson(with);
-		String input="am ללכת לסרט בארלוזורוב רמת גן ן  3   בשעה   1400";
-	model.Algo(input);
+		String [] a= model.Algo(taskText);
 	 
 	 Double numm;
 	 numm=modelDb.numberOfColumn(solution,"ID");
 	 Solution solution=new Solution(numm, task.getPerson(), task,
-			 modelDb.getSms(sms),modelDb.getPopUp(popUp),action);
+			 modelDb.getSms(sms),modelDb.getPopUp(popUp),Integer.parseInt(algo[3]));
 	 solution.setToDo(task.getStart());
 	 task.setSolution(solution);
 	

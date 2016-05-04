@@ -20,7 +20,10 @@ public class Solution implements Serializable {
 	public final static int Ask = 2;
 	public final static int PopUp = 3;
 	public final static int Sms = 4;
-	public final static int Ticket = 5;
+	public final static int Ticket = 5;//movie
+	public final static int Shoping = 6;//Shopping
+	public final static int BabySiter = 7;//Babysitter
+	public final static int Meeting = 8;//meeting
 	public final static int TIME = 15;
 
 	// /////////////////////////////
