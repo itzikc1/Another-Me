@@ -59,7 +59,7 @@ public class Task extends HttpServlet {
 		String txt = request.getParameter("txt").toString();
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		Date DateTimeStart = new Date();
-		DateTimeStart.setMinutes(DateTimeStart.getMinutes()+8);
+		DateTimeStart.setMinutes(DateTimeStart.getMinutes()+7);
 		Date DateTimeEnd = new Date();
         DateTimeEnd.setMonth(4);
         
