@@ -29,7 +29,7 @@ public class RunBackground implements  ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		scheduler = Executors.newSingleThreadScheduledExecutor();
-		 scheduler.scheduleAtFixedRate(new Model(), 0,60, TimeUnit.SECONDS);
+		 scheduler.scheduleAtFixedRate(new Model(), 0,2, TimeUnit.SECONDS);
 			
 	}
     

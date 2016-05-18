@@ -12,3 +12,55 @@ get html and get data from that
 pic add name
 what to do with constractor
 how to call some txt file location
+
+
+
+DELETE FROM CUSTOMERS
+WHERE ID = '6'
+
+
+VARCHAR
+BOOLEAN
+
+CREATE TABLE Person
+(
+ID String NOT NULL,
+PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
+CREATE TABLE Settings (ID INT(30) NOT NULL,FullName VARCHAR(30),PhoneNumber INT (30,Age INT (30),Password VARCHAR (30)
+,DateTimeRegister datetime (30),Mail VARCHAR (30) NOT NULL,PersonId VARCHAR (30) NOT NULL,PopUps BOOLEAN,Sms BOOLEAN,Solution BOOLEAN,Gps BOOLEAN, PRIMARY KEY (ID),FOREIGN KEY (PersonId) REFERENCES Persons(PersonId))
+
+
+CREATE TABLE Person(ID VARCHAR (100) NOT NULL,PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
+CREATE TABLE Settings (ID DOUBLE NOT NULL,FullName VARCHAR(50),PhoneNumber VARCHAR (200),Age INT ,Password VARCHAR (30) ,DateTimeRegister datetime,Mail VARCHAR (30) NOT NULL,PersonId VARCHAR (30) NOT NULL,PopUps VARCHAR (30),Sms VARCHAR (30),Solution VARCHAR (30),Gps VARCHAR (30), PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
+CREATE TABLE Gps (ID DOUBLE NOT NULL,Date datetime,X DOUBLE ,Y DOUBLE ,PersonId VARCHAR (30) NOT NULL,PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
+CREATE TABLE Sms (ID DOUBLE NOT NULL,SmsTamplates VARCHAR (30),Message VARCHAR (200),SenderId VARCHAR (30) NOT NULL,DateTimeSend datetime,PersonId VARCHAR (30) NOT NULL,PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
+CREATE TABLE PopUp (ID DOUBLE NOT NULL,Text VARCHAR (200),PopUpTamplates VARCHAR (30),DateTimeShow datetime,SenderId VARCHAR (30),PersonId VARCHAR (30) NOT NULL,PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
+CREATE TABLE Task (ID DOUBLE NOT NULL,PersonId VARCHAR (30) NOT NULL,TaskText VARCHAR (200),Start datetime,End datetime,Address VARCHAR(200),WhatToDo INT (2),Platform INT (2),WithPerson VARCHAR (30),Solution DOUBLE,PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
+CREATE TABLE Solution (ID DOUBLE NOT NULL,TaskId DOUBLE NOT NULL,Sms DOUBLE,ToDo datetime,PopUp DOUBLE, PersonId VARCHAR (30) NOT NULL,Action INT(2),TimeToArriving INT(50),PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
+CREATE TABLE Test (ID DOUBLE NOT NULL,datetime datetime,X INT (50),Y INT (50),PersonId VARCHAR (30) NOT NULL,PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
+set global max_connections = 250;
+show variables like "%max_connections%";
+
+DROP TABLE Settings,Gps,Sms,PopUp,Task,Solution,Person
+DROP TABLE Sms,Task,Solution,PopUp
+
+	int idSolution;
+	Task task;
+	SMS sms;
+	Date toDo;
+	PopUp popUp;
+	Person person;
+	int action;
+
+ID,PersonId,TaskText,Start,End,Address,WhatToDo,Platform,WithPerson,Solution
+INSERT INTO test (ID,datetime,X,Y,PersonId) VALUES ('2.0','2016-04-23 14:57:44.0','2','2','איציק')
+	

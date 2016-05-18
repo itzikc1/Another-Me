@@ -32,10 +32,33 @@
 			<span class="input-group-addon-btn" id="sizing-addon1">end</span> <input
 				type="text" class="form-control" name="start" size="20">
 		</div>
+		
 		<div class="input-group">
-			<span class="input-group-addon-btn" id="sizing-addon1">platform</span>
+			<span class="input-group-addon-btn" id="sizing-addon1">address</span>
+			<input type="text" class="form-control" name="address" size="20">
+		</div>
+		
+		<div class="input-group">
+			<span class="input-group-addon-btn" id="sizing-addon1">platform (default on 7 )</span>
 			<input type="text" class="form-control" name="platform" size="20">
 		</div>
+		<div class="input-group">
+			<span class="input-group-addon-btn" id="sizing-addon1">withPerson</span>
+			<input type="text" class="form-control" name="withPerson" size="20">
+		</div>
+			<div class="input-group">
+			<span class="input-group-addon-btn" id="sizing-addon1">popUp (double)</span>
+			<input type="text" class="form-control" name="popUp" size="20">
+		</div>
+			<div class="input-group">
+			<span class="input-group-addon-btn" id="sizing-addon1">SMS (double)</span>
+			<input type="text" class="form-control" name="sms" size="20">
+		</div>
+			<div class="input-group">
+			<span class="input-group-addon-btn" id="sizing-addon1">action (int)</span>
+			<input type="text" class="form-control" name="action" size="20">
+		</div>
+		
 
 		<input type="submit" name="task" value="Enter Task">
 

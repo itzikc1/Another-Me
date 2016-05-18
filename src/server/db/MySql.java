@@ -73,10 +73,14 @@ public class MySql implements MySqlInterface {
 		try {
 			result.next();
 			num = result.getDouble(1);
+			result.close();
+			 connectToMysql.closeConnection();
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(num);
 		return num;
 	}
 
@@ -123,7 +127,7 @@ public class MySql implements MySqlInterface {
 				+ " (ID,Date,X,Y,PersonId) VALUES ('" + gps.getIdGps() + "','"
 				+ GpsDate + "','" + gps.getX() + "','" + gps.getY() + "','"
 				+ gps.getPerson().getPersonId() + "')";
-		System.out.println(sql);
+		//System.out.println(sql);
 		connectToMysql.setSQL(sql);
 
 	}
@@ -225,6 +229,8 @@ public class MySql implements MySqlInterface {
 			task = new Task(result.getDouble("ID"), getPerson(personId),
 					taskText, start, end, address, whatToDo, platform);
 			task.setWithPerson(getPerson(result.getString("WithPerson")));
+			result.close();
+			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -232,7 +238,8 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 System.out.println("get task");
+		
 		return task;
 	}
 
@@ -250,6 +257,8 @@ public class MySql implements MySqlInterface {
 					getPopUp(result.getDouble("PopUp")),
 					result.getInt("Action"));
 			solution.setTimeToArriving(result.getInt("TimeToArriving"));
+			result.close();
+			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -258,6 +267,8 @@ public class MySql implements MySqlInterface {
 			e.printStackTrace();
 		}
 
+		 System.out.println("get solution");
+		
 		return solution;
 	}
 
@@ -272,6 +283,8 @@ public class MySql implements MySqlInterface {
 			result.next();
 			String personid = result.getString("ID");
 			person = new Person(personid, getSettings(personId));
+			result.close();
+			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -279,7 +292,8 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 System.out.println("get person");
+	
 		return person;
 	}
 
@@ -298,6 +312,8 @@ public class MySql implements MySqlInterface {
 					.getTime());
 			gps = new Gps(result.getDouble("ID"), result.getDouble("X"),
 					result.getDouble("Y"), date, getPerson(personId));
+			result.close();
+			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -305,6 +321,8 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		 System.out.println("get gps");
+		
 		return gps;
 	}
 
@@ -324,7 +342,8 @@ public class MySql implements MySqlInterface {
 					result.getString("PhoneNumber"),
 					result.getString("Password"), dateTimeRegister,
 					result.getString("Mail"), personId);
-			
+			result.close();
+			 connectToMysql.closeConnection();
 			return settings;
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -333,7 +352,8 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 System.out.println("get settings");
+	
 		return settings;
 	}
 
@@ -370,6 +390,8 @@ public class MySql implements MySqlInterface {
 				}
 				task.add(t);
 			}
+			result.close();
+			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -377,6 +399,8 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		 System.out.println("array of gps");
+		
 		return task;
 	}
 
@@ -444,6 +468,8 @@ public class MySql implements MySqlInterface {
 						getPerson(result.getString("PersonId")));
 				sms.add(s);
 			}
+			result.close();
+			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -451,7 +477,8 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 System.out.println("array of sms");
+		
 		return sms;
 	}
 
@@ -484,6 +511,8 @@ public class MySql implements MySqlInterface {
 				p.setDateTimeShow(DateTimeSend);
 				popUp.add(p);
 			}
+			result.close();
+			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -491,7 +520,8 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 System.out.println("array of popup");
+		
 		return popUp;
 	}
 
@@ -515,6 +545,9 @@ public class MySql implements MySqlInterface {
 						getPerson(result.getString("PersonId")));
 				sms.add(s);
 			}
+			result.close();
+			 connectToMysql.closeConnection();
+
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -522,7 +555,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 System.out.println("array of sms Default");
 		return sms;
 	}
 
@@ -559,7 +592,10 @@ public class MySql implements MySqlInterface {
 				 t.setSolution(getSolutionForTask(t));
 				 }
 			 task.add(t);
+			
 			}
+			result.close();
+			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -567,6 +603,9 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		 System.out.println("array of task with date");
+		 
+		
 		return task;
 	}
 
@@ -592,6 +631,8 @@ public class MySql implements MySqlInterface {
 				p.setDateTimeShow(DateTimeSend);
 				popUp.add(p);
 			}
+			result.close();
+			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -599,7 +640,8 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 System.out.println("array of popup default");
+		
 		return popUp;
 	}
 
@@ -630,8 +672,9 @@ public class MySql implements MySqlInterface {
 						result.getString("Message"),
 						getPerson(result.getString("SenderId")), DateTimeSend,
 						getPerson(result.getString("PersonId")));
-				
-			
+				result.close();
+				 connectToMysql.closeConnection();
+
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -639,7 +682,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 System.out.println("get sms");
 		return smsNew;
 	}
 
@@ -652,9 +695,7 @@ public class MySql implements MySqlInterface {
 		try {
 
 		result.next();
-				java.util.Date DateTimeSend = new java.sql.Timestamp(result
-						.getTimestamp("DateTimeShow").getTime());
-
+				java.util.Date DateTimeSend = new java.sql.Timestamp(result.getTimestamp("DateTimeShow").getTime());
 				Boolean b = Boolean.parseBoolean(result
 						.getString("PopUpTamplates"));
 				newPopUp = new PopUp(result.getDouble("ID"),
@@ -662,8 +703,8 @@ public class MySql implements MySqlInterface {
 						getPerson(result.getString("SenderId")),
 						getPerson(result.getString("PersonId")));
 				newPopUp.setDateTimeShow(DateTimeSend);
-				
-			
+				result.close();
+				 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -671,7 +712,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 System.out.println("get popup");
 		return newPopUp;
 	}
 

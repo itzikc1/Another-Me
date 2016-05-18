@@ -9,7 +9,7 @@ import entities.Task.Task;
 import entities.person.Person;
 
 public interface ModelInterface extends Runnable {
-   public Task TaskMaker(String personId, String taskText, Date start, Date end, int platform);
+   public Task TaskMaker(Double idTask, Person person, String taskText, Date start,Date end, String address, int whatToDo, int platform);
    
    public void CheckSolution();
    
@@ -26,4 +26,5 @@ public interface ModelInterface extends Runnable {
     public String[] Algo(String task);//need to change with Algo
     
     public int TimeToGo(Task task,int timeToArrive);
+    
 }

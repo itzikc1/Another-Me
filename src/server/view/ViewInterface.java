@@ -16,7 +16,7 @@ public interface ViewInterface {
 			String password, Date DateTimeRegister, String mail,String phoneNumber);
 
 	public void addNewTaskFromView(String personId,String taskText, Date start,
-			Date end,int platform,String withPerson,Double popUp,Double sms,int action);
+			Date end,String address,int platform,String withPerson,Double popUp,Double sms,int action);
 
 	public void addPopUpToDefaultFromView(String text, boolean popUpTamplates,String senderId,
 			String personId);

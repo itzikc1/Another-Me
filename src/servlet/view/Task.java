@@ -51,25 +51,39 @@ public class Task extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+		HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String personId = request.getParameter("personId").toString();
+		String address = request.getParameter("address").toString();
 		String txt = request.getParameter("txt").toString();
+		String withPerson = request.getParameter("withPerson").toString();
+		String popUpString = request.getParameter("popUp").toString();
+		String smsString = request.getParameter("sms").toString();
+		String actionString = request.getParameter("action").toString();		
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		Date DateTimeStart = new Date();
 		DateTimeStart.setMinutes(DateTimeStart.getMinutes()+7);
 		Date DateTimeEnd = new Date();
-        DateTimeEnd.setMonth(4);
+        DateTimeEnd.setMonth(8);  
+        Double sms=Double.valueOf(smsString);
+        Double popUp=Double.valueOf(popUpString);
         
-        Double sms=2.0;
-        Double popUp=2.0;
-        int action=3;
         int platform=7;
-        String withPerson = "eldar";
         
-		view.addNewTaskFromView(personId, txt, DateTimeStart, DateTimeEnd, platform,withPerson,popUp,sms,action);
+        if(address==""){
+        	address =null;
+		}
+        int action;
+        if(actionString==""){
+        	action =0;
+		}
+        else{
+        	action=Integer.valueOf(actionString);
+        }
+        
+		view.addNewTaskFromView(personId, txt, DateTimeStart, DateTimeEnd, address, platform,withPerson,popUp,sms,action);
 		 response.sendRedirect("nuv.jsp");
 
 	}

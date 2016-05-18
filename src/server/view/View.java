@@ -28,9 +28,9 @@ public class View implements ViewInterface, ControllerInterface {
 
 	@Override
 	public void addNewTaskFromView(String personId, String taskText,
-			Date start, Date end, int platform, String withPerson,
+			Date start, Date end,String address, int platform, String withPerson,
 			Double popUp, Double sms, int action) {
-		controller.addNewTaskFromView(personId, taskText, start, end, platform,
+		controller.addNewTaskFromView(personId, taskText, start, end,address, platform,
 				withPerson, popUp, sms, action);
 
 	}

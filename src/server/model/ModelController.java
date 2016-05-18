@@ -79,22 +79,23 @@ public class ModelController implements ModelControllerInterface {
 	
 	 @Override
 	 public void addNewTaskFromView(String personId, String taskText,
-	 Date start, Date end, int platform,String withPerson,Double popUp,Double
+	 Date start, Date end,String address, int platform,String withPerson,Double popUp,Double
 	 sms,int action) {
+		 
 	 Double num;
 	 num=modelDb.numberOfColumn(task,"ID");
 	 Person p = getPerson(personId);
 	 Person with = getPerson(withPerson);
-	 String [] algo= model.Algo(taskText);
-	 Task task = new Task(num,p, taskText, start, end,
-	algo[0], Integer.parseInt(algo[3]), platform);
+	// String [] algo= model.Algo(taskText);
+	// Task task = new Task(num,p, taskText, start, end,algo[0], Integer.parseInt(algo[3]), platform);
+	 Task task = model.TaskMaker(num, p, taskText, start, end, address, action, platform);
 	 task.setWithPerson(with);
-		String [] a= model.Algo(taskText);
+		//String [] a= model.Algo(taskText);
 	 
 	 Double numm;
 	 numm=modelDb.numberOfColumn(solution,"ID");
 	 Solution solution=new Solution(numm, task.getPerson(), task,
-			 modelDb.getSms(sms),modelDb.getPopUp(popUp),Integer.parseInt(algo[3]));
+			 modelDb.getSms(sms),modelDb.getPopUp(popUp),task.getWhatToDo());
 	 solution.setToDo(task.getStart());
 	 task.setSolution(solution);
 	

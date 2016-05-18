@@ -28,8 +28,8 @@ public class ServlerViewInterface implements ViewInterface{
 
 	@Override
 	public void addNewTaskFromView(String personId, String taskText,
-			Date start, Date end, int platform,String withPerson,Double popUp,Double sms,int action) {
-		view.addNewTaskFromView(personId, taskText, start, end, platform,withPerson,popUp,sms,action);
+			Date start, Date end,String address, int platform,String withPerson,Double popUp,Double sms,int action) {
+		view.addNewTaskFromView(personId, taskText, start, end,address, platform,withPerson,popUp,sms,action);
 		
 	}
 

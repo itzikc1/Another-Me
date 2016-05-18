@@ -9,8 +9,14 @@ import java.util.List;
 
 public class ConnectToMysql {
 
+	Connection conn;
+	Statement stmt;
+	Statement statement;
 	public ConnectToMysql() {
-
+		
+     this.conn=null;
+     this.stmt = null;
+		
 	}
 
 	public static Connection getConnection() throws Exception {
@@ -24,9 +30,12 @@ public class ConnectToMysql {
 	}
 
 	public void setSQL(String st) {
-		Connection conn = null;
-		Statement stmt = null;
+		conn = null;
+		//Connection conn = null;
+		stmt = null;
+		//Statement stmt = null;
 		try {
+			System.out.println("i am here!!!!");
 			conn = getConnection();
 			stmt = conn.createStatement();
 			stmt.executeUpdate(st);
@@ -39,18 +48,21 @@ public class ConnectToMysql {
 			System.out.println("other error:");
 			e.printStackTrace();
 		} finally {
-			try {
-				stmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			closeConnection();
+// 			try {
+// 				//stmt.close();
+//				
+//				//conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 
 	public ResultSet getSql(String st) {
-		Connection conn = null;
-		Statement stmt = null;
+		conn = null;
+		//Connection conn = null;
+		 stmt = null;
 		List<String> list;
 		ResultSet rs = null;
 		try {
@@ -58,12 +70,9 @@ public class ConnectToMysql {
 			stmt = conn.createStatement();
 			stmt.executeQuery(st);
 
-			Statement statement = conn.createStatement();
+			 statement = conn.createStatement();
 
 			rs = statement.executeQuery(st);
-//			System.out.println("Result: , "
-//					+ rs.toString());
-			//conn.close();
 			return rs;
 		} catch (ClassNotFoundException e) {
 			System.out.println("error: failed to load MySQL driver.");
@@ -78,4 +87,19 @@ public class ConnectToMysql {
 		return rs;
 		
 	}
+	public void closeConnection(){
+
+			try {
+				this.statement.close();
+				this.stmt.close();
+				this.conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+
+	
+	}
+	
 }

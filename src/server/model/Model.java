@@ -8,10 +8,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.DateFormat;
+
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.servlet.ServletContext;
 
 import org.json.simple.JSONArray;
@@ -23,6 +24,7 @@ import org.omg.CORBA.portable.InputStream;
 import entities.GPS.Gps;
 import entities.Solution.Solution;
 import entities.Task.Task;
+import entities.person.Person;
 
 public class Model implements ModelInterface {
 
@@ -37,18 +39,10 @@ public class Model implements ModelInterface {
 	 static	String clean="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/hebrewLanguage.txt";
 	
 	 private static SpellingCorrector singletonInstance;
-	 SpellingCorrector algo=  new SpellingCorrector(dictionaryLocationCityTwoRows, dictionaryLocationStreetCities, dictionaryMissions,clean);;
+	 SpellingCorrector algo=  new SpellingCorrector(dictionaryLocationCityTwoRows, dictionaryLocationStreetCities, dictionaryMissions,clean);
 
 			
-		
-	// after algo
-	@Override
-	public Task TaskMaker(String personId, String taskText, Date start,
-			Date end, int platform) {
-
-		return null;
-	}
-
+	
 	@Override
 	public void CheckSolution() {
 		// get the time now (on server)
@@ -155,7 +149,6 @@ public class Model implements ModelInterface {
 						+ "&destinations="
 						+end
 						+ ",&mode=driving&language=he-HE&key=AIzaSyBW002RI6PeIk47XTwZChp23vtjNiKupFo";
-				//System.out.println(url);
 			} else {//with full address
 				start = URLEncoder.encode(gps, "UTF-8");
 				url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
@@ -166,7 +159,6 @@ public class Model implements ModelInterface {
 
 			}
 
-			//System.out.println("url to get time in json file :" + url);
 			java.io.BufferedInputStream in = new java.io.BufferedInputStream(
 					new java.net.URL(url).openStream());
 			java.io.FileOutputStream fos = new java.io.FileOutputStream(
@@ -218,7 +210,7 @@ public class Model implements ModelInterface {
 		return timeToArriving;
 
 	}
-//dataForAlgorithm/
+
 	@Override
 	public String [] Algo(String task) {
 // the string is: location, time, am/pm, action
@@ -274,6 +266,35 @@ public class Model implements ModelInterface {
 		}
 		return 0;
 	}
+
+	@Override
+	public Task TaskMaker(Double idTask, Person person, String taskText,
+			Date start, Date end, String address, int whatToDo, int platform) {
+		
+		if(start==null||address==null||whatToDo==0){
+			String [] afterAlgo= Algo(taskText);
+			
+			System.out.println(afterAlgo[3]);
+//			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+//			Date DateTimeRegister=null;
+//			try {
+//				DateTimeRegister = df.parse(afterAlgo[1]);
+//			} catch (java.text.ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+			Task task = new Task(idTask, person, taskText,start, end, afterAlgo[0], Integer.parseInt(afterAlgo[3]), platform);
+			return task;
+		}
+		
+		else{
+			Task task = new Task(idTask, person, taskText, start, end, address, whatToDo, platform);
+			return task;
+		}
+		
+	}
+
 	
 	
 }
