@@ -15,8 +15,12 @@ public class ServlerViewInterface implements ViewInterface{
 	 
 	
 	
-	View view = new View();
+	public View view = new View();
 	
+
+//	public void setView(View view){
+//		this.view = view;
+//	}
 	
 	@Override
 	public void addNewPersonFromView(String personId, String password,

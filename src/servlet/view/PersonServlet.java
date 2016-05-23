@@ -73,6 +73,8 @@ public class PersonServlet extends HttpServlet  {
 
 		view.addNewPersonFromView(personId, password, DateTimeRegister, mail,
 				phoneNumber);
+		 //response.sendRedirect("nuv.jsp");
+
 
 	}
 

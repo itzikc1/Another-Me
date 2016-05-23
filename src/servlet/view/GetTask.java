@@ -52,6 +52,8 @@ public class GetTask extends HttpServlet {
 		for (int z = 0; z < task.size(); z++) {		
 			System.out.println(task.get(z).getTaskText());
 	 }
-		
+		// response.sendRedirect("nuv.jsp");
+
 	}
+	
 }

@@ -56,6 +56,7 @@ public class AddSms extends HttpServlet {
 			bool=false; 
 		}
 		view.addSmsToDefaultFromView(bool, txt, sendId, personId);
+		 //response.sendRedirect("nuv.jsp");
 
 	}
 

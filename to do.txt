@@ -3,21 +3,24 @@
 
 
 
+  <listener>
+   <listener-class>run.MainListener</listener-class>
+</listener>
 
-
-
+runing mvc from servlet
 need to conect the algo to model finel
 get all the array list
 get html and get data from that 
 pic add name
 what to do with constractor
-how to call some txt file location
 
 
 
 DELETE FROM CUSTOMERS
 WHERE ID = '6'
 
+ALTER TABLE Task
+ADD StatusSolution VARCHAR(30)
 
 VARCHAR
 BOOLEAN
@@ -41,7 +44,7 @@ CREATE TABLE Sms (ID DOUBLE NOT NULL,SmsTamplates VARCHAR (30),Message VARCHAR (
 
 CREATE TABLE PopUp (ID DOUBLE NOT NULL,Text VARCHAR (200),PopUpTamplates VARCHAR (30),DateTimeShow datetime,SenderId VARCHAR (30),PersonId VARCHAR (30) NOT NULL,PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
 
-CREATE TABLE Task (ID DOUBLE NOT NULL,PersonId VARCHAR (30) NOT NULL,TaskText VARCHAR (200),Start datetime,End datetime,Address VARCHAR(200),WhatToDo INT (2),Platform INT (2),WithPerson VARCHAR (30),Solution DOUBLE,PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+CREATE TABLE Task (ID DOUBLE NOT NULL,PersonId VARCHAR (30) NOT NULL,TaskText VARCHAR (200),Start datetime,End datetime,Address VARCHAR(200),WhatToDo INT (2),Platform INT (2),WithPerson VARCHAR (30),Solution DOUBLE,StatusSolution VARCHAR (30),PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
 
 CREATE TABLE Solution (ID DOUBLE NOT NULL,TaskId DOUBLE NOT NULL,Sms DOUBLE,ToDo datetime,PopUp DOUBLE, PersonId VARCHAR (30) NOT NULL,Action INT(2),TimeToArriving INT(50),PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
 
@@ -64,3 +67,12 @@ DROP TABLE Sms,Task,Solution,PopUp
 ID,PersonId,TaskText,Start,End,Address,WhatToDo,Platform,WithPerson,Solution
 INSERT INTO test (ID,datetime,X,Y,PersonId) VALUES ('2.0','2016-04-23 14:57:44.0','2','2','איציק')
 	
+	
+UPDATE Task
+SET StatusSolution='true'
+WHERE ID='2';
+
+
+ <listener>
+   <listener-class>run.MainListener</listener-class>
+</listener>

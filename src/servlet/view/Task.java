@@ -13,6 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Session;
 
 import entities.Task.PopUp;
 import entities.sms.SMS;
@@ -69,7 +72,6 @@ public class Task extends HttpServlet {
         DateTimeEnd.setMonth(8);  
         Double sms=Double.valueOf(smsString);
         Double popUp=Double.valueOf(popUpString);
-        
         int platform=7;
         
         if(address==""){
@@ -83,6 +85,9 @@ public class Task extends HttpServlet {
         	action=Integer.valueOf(actionString);
         }
         
+        if(withPerson==""){
+        	withPerson ="noBodey";
+		}
 		view.addNewTaskFromView(personId, txt, DateTimeStart, DateTimeEnd, address, platform,withPerson,popUp,sms,action);
 		 response.sendRedirect("nuv.jsp");
 

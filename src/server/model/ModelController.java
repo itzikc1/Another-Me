@@ -15,7 +15,9 @@ import entities.sms.SMS;
 public class ModelController implements ModelControllerInterface {
 	ModelDbInterface modelDb = new ModelDb();
 	ModelInterface model = new Model();
-	
+//	ModelDb modelDb = new ModelDb();
+//	Model model = new Model();
+		
 	String person = "Person";
 	String sms = "Sms";
 	String gps = "Gps";
@@ -50,7 +52,7 @@ public class ModelController implements ModelControllerInterface {
 	
 	 @Override
 	 public void sendTaskWithSolution(Task task) {
-	System.out.println("need to do : "+task.getWhatToDo());
+	 System.out.println("need to do : "+task.getWhatToDo());
 	
 	 }
 	
@@ -138,6 +140,8 @@ public class ModelController implements ModelControllerInterface {
 			Boolean Default) {
 		return modelDb.getPopUpDefault(personId, Default);
 	}
+
+	
 
 
 }

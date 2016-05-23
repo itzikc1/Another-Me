@@ -80,7 +80,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(num);
 		return num;
 	}
 
@@ -451,7 +450,7 @@ public class MySql implements MySqlInterface {
 					+ personId + "' AND SenderId= '" + sendId + "'"
 					+ " AND SmsTamplates= '" + Default.toString() + "'";
 		}
-		System.out.println(sql);
+		//System.out.println(sql);
 		ResultSet result = connectToMysql.getSql(sql);
 		ArrayList<SMS> sms = new ArrayList<SMS>();
 		try {
@@ -714,6 +713,43 @@ public class MySql implements MySqlInterface {
 		}
 		 System.out.println("get popup");
 		return newPopUp;
+	}
+
+	@Override
+	public void changeStatusSolution(String bool,Double idTask){
+		
+		String sql ="UPDATE Task SET StatusSolution='"+bool+"'WHERE ID='"+idTask+"'";
+		connectToMysql.setSQL(sql);
+		
+	}
+
+	@Override
+	public boolean checkStatusFromDB(Double idTask) {
+		String sql = "SELECT* FROM " + this.task + " where ID= " + "'"
+				+ idTask + "'";
+		ResultSet result = connectToMysql.getSql(sql);
+		Boolean bool = null;
+		try {
+		result.next();
+			String boolNull= result.getString("StatusSolution");
+			if(boolNull==null){
+				bool= false;
+			}
+			else{
+				bool=true;
+			}
+				result.close();
+				 connectToMysql.closeConnection();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 System.out.println("get popup");
+		//return newPopUp;
+		return bool;
 	}
 
 }

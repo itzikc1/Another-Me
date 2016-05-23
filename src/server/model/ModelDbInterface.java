@@ -34,7 +34,11 @@ public interface ModelDbInterface {
 	
 	public Double numberOfColumn(String nameTable,String nameColum);//set Settings
 	
-	public void addNewSolution(Task task);//set Settings
+	public void addNewSolution(Task task);
+	
+	public void changeStatusSolution(String bool,Double idTask);
+	  public boolean checkStatusFromDB(Double idTask);
+
 	
 
 	// /////////////////////////////////get////////////////////////

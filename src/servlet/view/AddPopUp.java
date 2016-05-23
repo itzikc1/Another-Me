@@ -55,6 +55,7 @@ public class AddPopUp extends HttpServlet {
 			bool=false; 
 		}
 		view.addPopUpToDefaultFromView(txt, bool,sendId, personId);
+		// response.sendRedirect("nuv.jsp");
 
 	}
 

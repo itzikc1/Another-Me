@@ -90,6 +90,7 @@ public class ConnectToMysql {
 	public void closeConnection(){
 
 			try {
+				System.out.println("close connection");
 				this.statement.close();
 				this.stmt.close();
 				this.conn.close();

@@ -231,6 +231,19 @@ public class ModelDb implements ModelDbInterface {
 		return null;
 	}
 
+	@Override
+	public void changeStatusSolution(String bool,Double idTask){
+		
+		sql.changeStatusSolution(bool, idTask);
+		
+	}
+
+	@Override
+	public boolean checkStatusFromDB(Double idTask) {
+		
+		return sql.checkStatusFromDB(idTask);
+	}
+
 //	 @Override
 //	 public void addSmsToDefaultFromView(boolean SmsTamplates, String msg,
 //	 String senderId, String personId) {

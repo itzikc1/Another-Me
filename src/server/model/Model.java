@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
 import javax.servlet.ServletContext;
 
 import org.json.simple.JSONArray;
@@ -21,17 +22,20 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.omg.CORBA.portable.InputStream;
 
+import server.controller.Controller;
 import entities.GPS.Gps;
 import entities.Solution.Solution;
 import entities.Task.Task;
 import entities.person.Person;
 
-public class Model implements ModelInterface {
+public class Model implements ModelInterface,Runnable {
 
 
 
 	//ModelControllerInterface modelController = new ModelController();
-	 ModelDbInterface modelDb = new ModelDb();
+	 //ModelDbInterface modelDb = new ModelDb();
+	 ModelDb modelDb = new ModelDb();
+	// Controller controller;
 	 
 	 static String dictionaryLocationCityTwoRows="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/israelCity.txt";
 	 static String dictionaryLocationStreetCities="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/israelStreetsCities.txt";
@@ -41,8 +45,13 @@ public class Model implements ModelInterface {
 	 private static SpellingCorrector singletonInstance;
 	 SpellingCorrector algo=  new SpellingCorrector(dictionaryLocationCityTwoRows, dictionaryLocationStreetCities, dictionaryMissions,clean);
 
-			
-	
+//	public void readFromFile(){
+//		
+//
+//	}
+//	 public void SetController(Controller controller){
+//		  this.controller= controller;
+//	  }
 	@Override
 	public void CheckSolution() {
 		// get the time now (on server)
@@ -51,10 +60,10 @@ public class Model implements ModelInterface {
 		
 		//5 hours before we check the time to arriving
 		date.setHours(date.getHours() +5);
-		System.out.println("connect");
+		System.out.println("Check Solution from Mysql");
 		ArrayList<Task> task = getTaskOnTime(date);
 		for (int i = 0; i < task.size(); i++) {
-			if (task.get(i).getWhatToDo() != 1) {
+			if ((task.get(i).getWhatToDo() != 1)&&checkStatus(task.get(i).getIdTask())) {
 				switch (task.get(i).getWhatToDo()) {
 				case 2:
 					// send ask what to do
@@ -80,11 +89,14 @@ public class Model implements ModelInterface {
 					break;
 				case 8:
 					if(task.get(i).getAddress()!=null){
-						Gps gps = getLastLocation(task.get(i).getPerson().getPersonId());
+						Gps gps = getLastLocation(task.get(i).getPerson().getPersonId());//get last location
 
-						int timeToArrive = CalculatorTime(task.get(i), gps);
-						
+						int timeToArrive = CalculatorTime(task.get(i), gps);						
 						int timeToGo =  TimeToGo(task.get(i),timeToArrive);
+						if(timeToGo==1){
+						modelDb.changeStatusSolution("true", task.get(i).getIdTask());
+						
+						}
 					}
 					break;
 
@@ -125,7 +137,9 @@ public class Model implements ModelInterface {
 
 	@Override
 	public void DoSolution(Task task) {
-		//modelController.sendTaskWithSolution(task);
+	
+		modelDb.changeStatusSolution("true", task.getIdTask());
+		System.out.println("Do somthing!!!!");
 
 	}
 
@@ -216,11 +230,11 @@ public class Model implements ModelInterface {
 // the string is: location, time, am/pm, action
 		try{
 		String[] features =new String[4];
-		System.out.println(task);
+		//System.out.println("the text input to algo: "+task);
 		features=algo.parse(task);
 	
 		for(String feature:features){
-			System.out.println(feature);
+			System.out.println("after algo: "+feature);
 		}
 		return features;
 		} catch (IOException e) {
@@ -232,24 +246,6 @@ public class Model implements ModelInterface {
 	}
 	
 	
-
-	@Override
-	public void run() {
-		System.out.println("run Background Job Manager!!!!");
-		CheckSolution();
-		
-	
-		
-//		File myFile = new File("MyFile.txt");  //or "user.home"
-//		try {
-//			myFile.createNewFile();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
-	}
-
 	@Override
 	public int TimeToGo(Task task,int timeToArrive) {
 		
@@ -262,7 +258,7 @@ public class Model implements ModelInterface {
 				
 		if( dateTask.before(dateNow)){	
 			System.out.println("now need to do ");
-			DoSolution(task);
+			return 1;
 		}
 		return 0;
 	}
@@ -270,31 +266,65 @@ public class Model implements ModelInterface {
 	@Override
 	public Task TaskMaker(Double idTask, Person person, String taskText,
 			Date start, Date end, String address, int whatToDo, int platform) {
-		
-		if(start==null||address==null||whatToDo==0){
-			String [] afterAlgo= Algo(taskText);
-			
-			System.out.println(afterAlgo[3]);
-//			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-//			Date DateTimeRegister=null;
-//			try {
-//				DateTimeRegister = df.parse(afterAlgo[1]);
-//			} catch (java.text.ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
-			Task task = new Task(idTask, person, taskText,start, end, afterAlgo[0], Integer.parseInt(afterAlgo[3]), platform);
-			return task;
+
+		String[] afterAlgo = null;
+		String newAddress = address;
+		int newWhatToDo = whatToDo;
+		if (start == null || address == null || whatToDo == 0) {
+			afterAlgo = Algo(taskText);
+			newAddress = Address(address, afterAlgo[0]);
+			newWhatToDo = whatToDo(whatToDo, Integer.parseInt(afterAlgo[3]));
+
 		}
-		
-		else{
-			Task task = new Task(idTask, person, taskText, start, end, address, whatToDo, platform);
-			return task;
-		}
-		
+
+		// if(start==null){
+		// DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		// Date DateTimeRegister=null;
+		// try {
+		// DateTimeRegister = df.parse(afterAlgo[1]);
+		// } catch (java.text.ParseException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// }
+
+		System.out.println("the task: " + afterAlgo[3]);
+
+		Task task = new Task(idTask, person, taskText, start, end, newAddress,
+				newWhatToDo, platform);
+
+		return task;
+
 	}
 
+	public int whatToDo(int old, int fromAlgo) {
+
+		if (old == 0) {
+			return fromAlgo;
+
+		} else {
+			return old;
+		}
+
+	}
+
+	public String Address(String old, String fromAlgo) {
+		if (old == null) {
+			return fromAlgo;
+		} else {
+			return old;
+		}
+	}
+
+	@Override
+	public boolean checkStatus(Double idTask) {
 	
+		return modelDb.checkStatusFromDB(idTask);
+	}
+	@Override
+	public void run() {
+		System.out.println("run back");
+		CheckSolution();
+	}
 	
 }

@@ -26,7 +26,6 @@ public interface ControllerInterface {
 
 	public ArrayList<PopUp> getPopUp(String personId,String sendId,Boolean Default);//return all the popUp from user
 
-	public void sendTaskWithSolution(Task task);
 
 	///////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -44,6 +43,7 @@ public interface ControllerInterface {
 
 	public void addNewGpsLocationFromView(Double x, Double y, Date gpsDate, String personId);
 	
-	
+	public void sendTaskWithSolution(Task task);
+
 
 }

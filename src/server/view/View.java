@@ -16,9 +16,16 @@ public class View implements ViewInterface, ControllerInterface {
 
 	
 		
-	Controller	controller= new Controller();
-
-
+	Controller controller = new Controller();
+   // ServlerViewInterface servlerViewInterfac = new ServlerViewInterface();
+    
+   
+//  public void SetController(Controller controller,ServlerViewInterface servlerViewInterface ){
+//	  this.controller= controller;
+//	  this.servlerViewInterfac =servlerViewInterface;
+//  }
+    
+    
 	@Override
 	public void addNewPersonFromView(String personId, String password,
 			Date DateTimeRegister, String mail, String phoneNumber) {
@@ -120,15 +127,14 @@ public class View implements ViewInterface, ControllerInterface {
 	@Override
 	public void sendTaskWithSolution(Task task) {
 		// need to be with parameters of application
-		// servlerViewInterface.sendTaskWithSolution(task.getPerson().getPersonId(),,
-		// start, end, platform, withPerson, popUp, sms, action);;
+		//sendTaskWithSolution(personId, taskText, start, end, platform, withPerson, popUp, sms, action);
 	}
 
 	@Override
 	public void sendTaskWithSolution(String personId, String taskText,
 			Date start, Date end, int platform, String withPerson,
 			Double popUp, Double sms, int action) {
-//		servlerViewInterface.sendTaskWithSolution(personId, taskText, start,
+//		servlerViewInterfac.sendTaskWithSolution(personId, taskText, start,
 //				end, platform, withPerson, popUp, sms, action);
 
 	}
