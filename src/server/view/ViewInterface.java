@@ -41,6 +41,11 @@ public interface ViewInterface {
 
 	public void sendTaskWithSolution(String personId,String taskText, Date start,
 			Date end,int platform,String withPerson,Double popUp,Double sms,int action);
+	
+	public void addPictures(String pictureName,String person,Date datePic);
 
+	public void addPicturesToShare(String pictureName,String person,Date datePic,String personToSend,String txt);
+
+	 public ArrayList<Task> CheckSolutionForPerson(String person);
 
 }

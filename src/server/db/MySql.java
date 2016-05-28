@@ -9,6 +9,8 @@ import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
 import entities.person.Settings;
+import entities.pictures.Pictures;
+import entities.pictures.SharePictures;
 import entities.sms.SMS;
 
 import java.sql.ResultSet;
@@ -21,8 +23,6 @@ import java.util.Calendar;
 public class MySql implements MySqlInterface {
 
 	
-	
-	
 	ConnectToMysql connectToMysql = new ConnectToMysql();
 	String person = "Person";
 	String sms = "Sms";
@@ -31,6 +31,9 @@ public class MySql implements MySqlInterface {
 	String popUp = "PopUp";
 	String task = "Task";
 	String solution = "Solution";
+	String pictures = "Pictures";
+	String picturesShare = "PicturesShare";
+
 
 	@Override
 	public void deleteRow(String nameTable, String ID) {
@@ -74,7 +77,7 @@ public class MySql implements MySqlInterface {
 			result.next();
 			num = result.getDouble(1);
 			result.close();
-			 connectToMysql.closeConnection();
+			connectToMysql.closeConnection();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -208,6 +211,31 @@ public class MySql implements MySqlInterface {
 		connectToMysql.setSQL(sql);
 	}
 
+	
+	@Override
+	public void addNewPictures(Pictures pictures) {
+		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		Date DateTimeRegister = new Date();
+
+		java.sql.Timestamp DateTime = new java.sql.Timestamp(
+				pictures.getDatePic().getTime());
+
+		String sql = "INSERT INTO "
+				+ this.pictures
+				+ " (ID,PictureName,PersonId,dateTime) VALUES ('"
+				+ pictures.getIdpicture() + "','" + pictures.getPictureName() + "','" + pictures.getPerson().getPersonId()
+				+ "','" +DateTime + "')";
+		connectToMysql.setSQL(sql);
+		
+	}
+	
+	@Override
+	public void addNewPicturesToShare(SharePictures sharePictures) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 	@Override
 	public Task getTask(Date date, String personId) {
 
@@ -283,7 +311,7 @@ public class MySql implements MySqlInterface {
 			String personid = result.getString("ID");
 			person = new Person(personid, getSettings(personId));
 			result.close();
-			 connectToMysql.closeConnection();
+			connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -303,6 +331,7 @@ public class MySql implements MySqlInterface {
 				
 //		String sql = "SELECT* FROM " + this.gps + " where ID= " + "'"
 //				+ personId + "'";
+	System.out.println(sql);
 		ResultSet result = connectToMysql.getSql(sql);
 		Gps gps = null;
 		try {
@@ -389,7 +418,7 @@ public class MySql implements MySqlInterface {
 				}
 				task.add(t);
 			}
-			result.close();
+		result.close();
 			 connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -468,7 +497,7 @@ public class MySql implements MySqlInterface {
 				sms.add(s);
 			}
 			result.close();
-			 connectToMysql.closeConnection();
+			connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -672,7 +701,7 @@ public class MySql implements MySqlInterface {
 						getPerson(result.getString("SenderId")), DateTimeSend,
 						getPerson(result.getString("PersonId")));
 				result.close();
-				 connectToMysql.closeConnection();
+				connectToMysql.closeConnection();
 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -703,7 +732,7 @@ public class MySql implements MySqlInterface {
 						getPerson(result.getString("PersonId")));
 				newPopUp.setDateTimeShow(DateTimeSend);
 				result.close();
-				 connectToMysql.closeConnection();
+				connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -739,7 +768,7 @@ public class MySql implements MySqlInterface {
 				bool=true;
 			}
 				result.close();
-				 connectToMysql.closeConnection();
+				connectToMysql.closeConnection();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -751,5 +780,8 @@ public class MySql implements MySqlInterface {
 		//return newPopUp;
 		return bool;
 	}
+
+	
+	
 
 }

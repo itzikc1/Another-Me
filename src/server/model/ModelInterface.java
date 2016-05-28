@@ -29,5 +29,6 @@ public interface ModelInterface extends Runnable{
     
     public boolean checkStatus(Double idTask);
 
+    public ArrayList<Task> CheckSolutionForPerson(String person);
     
 }

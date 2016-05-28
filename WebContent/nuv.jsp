@@ -24,9 +24,11 @@
      <li role="presentation"><a href="AddSmsToDefault.jsp">Add SMS</a></li>
      <li role="presentation"><a href="AddPopUpToDefault.jsp">Add PopUp</a></li>
       <li role="presentation"><a href="AddGps.jsp">Add Location</a></li>
+            <li role="presentation"><a href="AddPicture.jsp">Add Pictures</a></li>
       <li role="presentation"><a href="GetSms.jsp">Get SMS</a></li>
         <li role="presentation"><a href="GetPopUp.jsp">Get PopUp</a></li>
          <li role="presentation"><a href="GetPerson.jsp">Get Person</a></li>
+           <li role="presentation"><a href="GetTaskToDo.jsp">Get Person Task</a></li>
     <li role="presentation"><a href="GetTask.jsp">Get Task</a></li>
       <li role="presentation"><a href="Table.jsp">Table</a></li>
     <li role="presentation"><a href="LogIn.jsp">Login</a></li>
@@ -34,4 +36,3 @@
 </ul>
 </body>
 </html>
-

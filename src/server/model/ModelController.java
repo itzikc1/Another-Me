@@ -10,6 +10,8 @@ import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
 import entities.person.Settings;
+import entities.pictures.Pictures;
+import entities.pictures.SharePictures;
 import entities.sms.SMS;
 
 public class ModelController implements ModelControllerInterface {
@@ -26,6 +28,8 @@ public class ModelController implements ModelControllerInterface {
 	String popUp = "PopUp";
 	String task = "Task";
 	String solution = "Solution";
+	String pictures = "Pictures";
+	String picturesShare = "PicturesShare";
 
 	
 
@@ -139,6 +143,32 @@ public class ModelController implements ModelControllerInterface {
 	public ArrayList<PopUp> getPopUp(String personId, String sendId,
 			Boolean Default) {
 		return modelDb.getPopUpDefault(personId, Default);
+	}
+
+	@Override
+	public void addPictures(String pictureName, String person, Date datePic) {
+		Double num;
+		 num=modelDb.numberOfColumn(pictures,"ID");
+		
+		 Pictures pictures = new Pictures(num,pictureName,getPerson(person), datePic);
+		 modelDb.addNewPictures(pictures);
+		
+	}
+
+	@Override
+	public void addPicturesToShare(String pictureName, String person,
+			Date datePic, String personToSend, String txt) {
+		Double num;
+		 num=modelDb.numberOfColumn(picturesShare,"ID");
+		 
+		 SharePictures pictures = new SharePictures(num,pictureName, getPerson(person), datePic, getPerson(personToSend), txt, false);
+		 modelDb.addNewPicturesToShare(pictures);
+		
+	}
+
+	@Override
+	public ArrayList<Task> CheckSolutionForPerson(String person) {
+		return model.CheckSolutionForPerson(person);
 	}
 
 	

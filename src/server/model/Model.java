@@ -116,7 +116,9 @@ public class Model implements ModelInterface,Runnable {
 		//String locationTask="אלי ויזל 20 ראשון לציון ישראל";
 		Double locationGpsX = gps.getX();
 		Double locationGpsY = gps.getY();
-		
+		if(locationTask==null){
+			return 0;
+		}
 		
 		return CalculatorTimeFromJson(locationTask, null, locationGpsX,
 				locationGpsY);
@@ -288,7 +290,7 @@ public class Model implements ModelInterface,Runnable {
 		// }
 		// }
 
-		System.out.println("the task: " + afterAlgo[3]);
+		//System.out.println("the task: " + afterAlgo[3]);
 
 		Task task = new Task(idTask, person, taskText, start, end, newAddress,
 				newWhatToDo, platform);
@@ -324,7 +326,35 @@ public class Model implements ModelInterface,Runnable {
 	@Override
 	public void run() {
 		System.out.println("run back");
-		CheckSolution();
+		//CheckSolution();
 	}
+
+	@Override
+	public ArrayList<Task> CheckSolutionForPerson(String person) {
+		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		Date date = new Date();
+	//	CheckSolution();
+		ArrayList<Task> tasks = getTaskOnTime(date);
+		ArrayList<Task> taskToDo = new ArrayList<Task>();
+		ArrayList<Task> task = modelDb.getTasks(person);
+		
+		for (int i = 0; i < task.size(); i++) {
+			if ((task.get(i).getWhatToDo() != 1)&&!(checkStatus(task.get(i).getIdTask()))) {
+				
+					if(task.get(i).getAddress()!=null){
+						Gps gps = getLastLocation(task.get(i).getPerson().getPersonId());//get last location
+
+						int timeToArrive = CalculatorTime(task.get(i), gps);						
+						int timeToGo =  TimeToGo(task.get(i),timeToArrive);
+						if(timeToGo<=task.get(i).getSolution().getTimeToArriving()){
+						modelDb.changeStatusSolution("true", task.get(i).getIdTask());
+						taskToDo.add(task.get(i));
+					}
+				}
+			}
+		}
+		return taskToDo;
+	}
+	
 	
 }

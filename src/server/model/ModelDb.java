@@ -11,6 +11,8 @@ import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
 import entities.person.Settings;
+import entities.pictures.Pictures;
+import entities.pictures.SharePictures;
 import entities.sms.SMS;
 
 public class ModelDb implements ModelDbInterface {
@@ -26,6 +28,9 @@ public class ModelDb implements ModelDbInterface {
 	String popUp = "PopUp";
 	String task = "Task";
 	String solution = "Solution";
+	String pictures = "Pictures";
+	String picturesShare = "PicturesShare";
+
 
 	@Override
 	public void deleteTable(String name) {
@@ -86,7 +91,17 @@ public class ModelDb implements ModelDbInterface {
 		sql.addNewGpsLocation(gps, person);
 
 	}
+	
+	@Override
+	public void addNewPictures(Pictures pictures) {
+		sql.addNewPictures(pictures);
+	}
 
+	@Override
+	public void addNewPicturesToShare(SharePictures sharePictures) {
+		sql.addNewPicturesToShare(sharePictures);
+		
+	}
 	@Override
 	public Settings getSettings(String personId) {
 		// TODO Auto-generated method stub
@@ -243,6 +258,10 @@ public class ModelDb implements ModelDbInterface {
 		
 		return sql.checkStatusFromDB(idTask);
 	}
+
+	
+
+
 
 //	 @Override
 //	 public void addSmsToDefaultFromView(boolean SmsTamplates, String msg,

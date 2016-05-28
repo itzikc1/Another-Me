@@ -9,6 +9,8 @@ import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
 import entities.person.Settings;
+import entities.pictures.Pictures;
+import entities.pictures.SharePictures;
 import entities.sms.SMS;
 
 public interface ModelDbInterface {
@@ -37,8 +39,13 @@ public interface ModelDbInterface {
 	public void addNewSolution(Task task);
 	
 	public void changeStatusSolution(String bool,Double idTask);
-	  public boolean checkStatusFromDB(Double idTask);
-
+	
+	public boolean checkStatusFromDB(Double idTask);
+	
+	public void addNewPictures(Pictures pictures);
+	 
+	public void addNewPicturesToShare(SharePictures sharePictures);
+	
 	
 
 	// /////////////////////////////////get////////////////////////
@@ -67,13 +74,10 @@ public interface ModelDbInterface {
 	
 	public PopUp getPopUp(Double popUpId);
 	
-	
 	public Gps getGps(String personId);
 	
 	public Task getTask(Date date, String personId);//return specific task by date
 	
-
-
 	public Person getPerson(String personId);//return person with all data
 
 	// ///////////////////////////GET ALL/////////////////////////////

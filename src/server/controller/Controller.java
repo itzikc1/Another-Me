@@ -102,6 +102,22 @@ public class Controller implements ControllerInterface {
 		
 	}
 
+	@Override
+	public void addPictures(String pictureName, String person, Date datePic) {
+		model.addPictures(pictureName, person, datePic);
+	}
+
+	@Override
+	public void addPicturesToShare(String pictureName, String person,
+			Date datePic, String personToSend, String txt) {
+			model.addPicturesToShare(pictureName, person, datePic, personToSend, txt);		
+	}
+
+	@Override
+	public ArrayList<Task> CheckSolutionForPerson(String person) {
+		return model.CheckSolutionForPerson(person);
+	}
+
 
 
 }

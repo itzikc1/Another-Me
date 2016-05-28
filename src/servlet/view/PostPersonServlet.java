@@ -62,30 +62,29 @@ public class PostPersonServlet extends HttpServlet {
 		Boolean Gps = person.getSettings().getGps();
 				
  		PrintWriter out = response.getWriter();
-
-		out.println("<html><body>");
-
-		out.println("<p>" + person.getPersonId() + "</p>");
-		out.println("<p>" + Mail + "</p>");
-		out.println("<p>" + PhoneNumber + "</p>");
-		out.println("<p>" + Age + "</p>");
-		out.println("<p>" + DateTimeRegister + "</p>");
-		out.println("<p>" + FullName + "</p>");
-		out.println("<p>" + PopUps + "</p>");
-		out.println("<p>" + Sms + "</p>");
-		out.println("<p>" + Solution + "</p>");
-		out.println("<p>" + Gps + "</p>");
-		out.println("</body></html>");
-
+ 		
+ 		
+		out.println(person.getPersonId());
+		out.println(Mail);
+		out.println(PhoneNumber);
+		out.println(Age);
+		out.println(DateTimeRegister);
+		out.println(FullName);
+		out.println(PopUps);
+		out.println(Sms);
+		out.println(Solution);
+		out.println(Gps);
+//		out.println("<html><body>");
+//		out.println("<p>" + person.getPersonId() + "</p>");
+//		out.println("<p>" + Mail + "</p>");
+//		out.println("<p>" + PhoneNumber + "</p>");
+//		out.println("<p>" + Age + "</p>");
+//		out.println("<p>" + DateTimeRegister + "</p>");
+//		out.println("<p>" + FullName + "</p>");
+//		out.println("<p>" + PopUps + "</p>");
+//		out.println("<p>" + Sms + "</p>");
+//		out.println("<p>" + Solution + "</p>");
+//		out.println("<p>" + Gps + "</p>");
+//		out.println("</body></html>");
 	}
-
 }
-
-
-//System.out.println(PhoneNumber);
-//System.out.println(Age);
-//System.out.println(FullName);
-//System.out.println(PopUps);
-//System.out.println(Sms);
-//System.out.println(Solution);
-//System.out.println(Gps);

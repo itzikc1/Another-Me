@@ -93,6 +93,25 @@ public class ServlerViewInterface implements ViewInterface{
 		
 	}
 
+	@Override
+	public void addPictures(String pictureName, String person, Date datePic) {
+		view.addPictures(pictureName, person, datePic);
+		
+	}
+
+	@Override
+	public void addPicturesToShare(String pictureName, String person,
+			Date datePic, String personToSend, String txt) {
+		view.addPicturesToShare(pictureName, person, datePic, personToSend, txt);
+		
+	}
+
+	@Override
+	public ArrayList<Task> CheckSolutionForPerson(String person) {
+		
+		return view.CheckSolutionForPerson(person);
+	}
+
 	
 		
 }

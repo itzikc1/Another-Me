@@ -44,6 +44,12 @@ public interface ControllerInterface {
 	public void addNewGpsLocationFromView(Double x, Double y, Date gpsDate, String personId);
 	
 	public void sendTaskWithSolution(Task task);
+	
+	public void addPictures(String pictureName,String person,Date datePic);
+	
+	public void addPicturesToShare(String pictureName,String person,Date datePic,String personToSend,String txt);
+
+	 public ArrayList<Task> CheckSolutionForPerson(String person);
 
 
 }

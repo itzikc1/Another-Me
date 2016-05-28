@@ -8,8 +8,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import run.Main;
-import run.MainListener;
 import server.controller.Controller;
 import server.view.View;
 import servlet.view.ServlerViewInterface;
@@ -36,7 +34,7 @@ public class RunBackground implements  ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		scheduler = Executors.newSingleThreadScheduledExecutor();
-		 scheduler.scheduleAtFixedRate(new Model(), 0, 2, TimeUnit.SECONDS);
+		 scheduler.scheduleAtFixedRate(new Model(), 0, 60, TimeUnit.SECONDS);
 //		 View view= new View();
 //			ModelController model = new ModelController();
 //			Controller controller = new Controller(model, view);
@@ -50,8 +48,4 @@ public class RunBackground implements  ServletContextListener {
 		scheduler.shutdownNow();
 	}
 
-
-
-	
-	
 }
