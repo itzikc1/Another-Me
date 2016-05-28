@@ -26,7 +26,7 @@ public interface ControllerInterface {
 
 	public ArrayList<PopUp> getPopUp(String personId,String sendId,Boolean Default);//return all the popUp from user
 
-
+	public Boolean signIn(String personId,String password);
 	///////////////////////////////////////////////////////////////////////////////////////////
 	
 	public void addNewPersonFromView(String personId,
@@ -49,7 +49,10 @@ public interface ControllerInterface {
 	
 	public void addPicturesToShare(String pictureName,String person,Date datePic,String personToSend,String txt);
 
-	 public ArrayList<Task> CheckSolutionForPerson(String person);
+	public ArrayList<Task> CheckSolutionForPerson(String person);
+	
+	
+	
 
 
 }

@@ -171,6 +171,12 @@ public class ModelController implements ModelControllerInterface {
 		return model.CheckSolutionForPerson(person);
 	}
 
+	@Override
+	public Boolean signIn(String personId, String password) {
+		
+		return modelDb.signIn(personId, password);
+	}
+
 	
 
 

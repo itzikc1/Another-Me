@@ -116,12 +116,13 @@ public class Model implements ModelInterface,Runnable {
 		//String locationTask="אלי ויזל 20 ראשון לציון ישראל";
 		Double locationGpsX = gps.getX();
 		Double locationGpsY = gps.getY();
-		if(locationTask==null){
+		if( locationTask.equals("null")){
 			return 0;
 		}
-		
+		else{
 		return CalculatorTimeFromJson(locationTask, null, locationGpsX,
 				locationGpsY);
+		}
 
 	}
 

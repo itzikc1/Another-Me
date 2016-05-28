@@ -118,6 +118,12 @@ public class Controller implements ControllerInterface {
 		return model.CheckSolutionForPerson(person);
 	}
 
+	@Override
+	public Boolean signIn(String personId, String password) {
+
+		return model.signIn(personId, password);
+	}
+
 
 
 }

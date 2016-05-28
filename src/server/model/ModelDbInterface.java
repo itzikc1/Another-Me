@@ -80,6 +80,8 @@ public interface ModelDbInterface {
 	
 	public Person getPerson(String personId);//return person with all data
 
+	public Boolean signIn(String personId,String password);
+
 	// ///////////////////////////GET ALL/////////////////////////////
 	public ArrayList<Person> getAllPersons();
 

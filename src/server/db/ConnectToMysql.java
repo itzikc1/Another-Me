@@ -11,12 +11,19 @@ public class ConnectToMysql {
 
 	Connection conn;
 	Statement stmt;
-	Statement statement;
+	//Statement statement;
 	public ConnectToMysql() {
-		
-     this.conn=null;
-     this.stmt = null;
-		
+
+		this.conn = null;
+		this.stmt = null;
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static Connection getConnection() throws Exception {
@@ -30,12 +37,21 @@ public class ConnectToMysql {
 	}
 
 	public void setSQL(String st) {
-		conn = null;
-		//Connection conn = null;
-		stmt = null;
-		//Statement stmt = null;
 		try {
-			System.out.println("i am here!!!!");
+			if((conn!=null)&&(stmt!=null)){
+			if(!conn.isClosed()){
+			conn.close();
+			}
+			if(!stmt.isClosed()){
+				stmt.close();
+			}			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			//System.out.println("i am here!!!!");
 			conn = getConnection();
 			stmt = conn.createStatement();
 			stmt.executeUpdate(st);
@@ -48,59 +64,44 @@ public class ConnectToMysql {
 			System.out.println("other error:");
 			e.printStackTrace();
 		} finally {
-			closeConnection();
-// 			try {
-// 				//stmt.close();
-//				
-//				//conn.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				if(!conn.isClosed()){
+				conn.close();
+				}
+				if(!stmt.isClosed()){
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
-	public ResultSet getSql(String st) {
-		conn = null;
-		//Connection conn = null;
-		 stmt = null;
-		List<String> list;
-		ResultSet rs = null;
+	public ConnectionParm getSql(String st) {
+
+		ConnectionParm con = new ConnectionParm();
+	
+	
 		try {
-			conn = getConnection();
-			stmt = conn.createStatement();
-			stmt.executeQuery(st);
+			con.setConn(getConnection());
+			con.setStmt(con.getConn().createStatement());
+	
+	
+			con.setRs(con.getStmt().executeQuery(st));
+			return con;
 
-			 statement = conn.createStatement();
-
-			rs = statement.executeQuery(st);
-			return rs;
-		} catch (ClassNotFoundException e) {
-			System.out.println("error: failed to load MySQL driver.");
-			e.printStackTrace();
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			System.out.println("error: failed to get.");
 			e.printStackTrace();
 		} catch (Exception e) {
 			System.out.println("other error:");
 			e.printStackTrace();
 		}
-		return rs;
+		return con;
 		
 	}
-	public void closeConnection(){
 
-			try {
-				System.out.println("close connection");
-				this.statement.close();
-				this.stmt.close();
-				this.conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-
-	
-	}
 	
 }

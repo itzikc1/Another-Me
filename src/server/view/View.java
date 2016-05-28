@@ -158,4 +158,9 @@ public class View implements ViewInterface, ControllerInterface {
 		return controller.CheckSolutionForPerson(person);
 	}
 
+	@Override
+	public Boolean signIn(String personId, String password) {
+		return controller.signIn(personId, password);
+	}
+
 }

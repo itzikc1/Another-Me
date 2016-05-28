@@ -112,6 +112,12 @@ public class ServlerViewInterface implements ViewInterface{
 		return view.CheckSolutionForPerson(person);
 	}
 
+	@Override
+	public Boolean signIn(String personId, String password) {
+	
+		return view.signIn(personId, password);
+	}
+
 	
 		
 }

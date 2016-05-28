@@ -67,17 +67,19 @@ public class MySql implements MySqlInterface {
 
 	@Override
 	public Double numberOfColumn(String nameTable, String nameColum) {
-
+		
 		String sql = "SELECT COUNT(*) FROM " + nameTable;
 		ResultSet result = null;
-		result = (connectToMysql.getSql(sql));
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
+		//result = (connectToMysql.getSql(sql));
 		Double num = 0.0;
 
 		try {
 			result.next();
 			num = result.getDouble(1);
-			result.close();
-			connectToMysql.closeConnection();
+			con.close();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -243,7 +245,12 @@ public class MySql implements MySqlInterface {
 
 		String sql = "SELECT* FROM " + this.task + " where PersonId= " + "'"
 				+ personId + "'" + " AND Start='" + start + "'";
-		ResultSet result = connectToMysql.getSql(sql);
+		
+		ResultSet result;
+		//= connectToMysql.getSql(sql);
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		Task task = null;
 		try {
 			result.next();
@@ -256,8 +263,7 @@ public class MySql implements MySqlInterface {
 			task = new Task(result.getDouble("ID"), getPerson(personId),
 					taskText, start, end, address, whatToDo, platform);
 			task.setWithPerson(getPerson(result.getString("WithPerson")));
-			result.close();
-			 connectToMysql.closeConnection();
+			con.close();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -275,7 +281,10 @@ public class MySql implements MySqlInterface {
 		String sql = "SELECT* FROM " + this.solution + " where TaskId= " + "'"
 				+ taskId.getIdTask() + "'";
 		//System.out.println(sql);
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		Solution solution = null;
 		try {
 			result.next();
@@ -284,8 +293,7 @@ public class MySql implements MySqlInterface {
 					getPopUp(result.getDouble("PopUp")),
 					result.getInt("Action"));
 			solution.setTimeToArriving(result.getInt("TimeToArriving"));
-			result.close();
-			 connectToMysql.closeConnection();
+			con.close();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -304,14 +312,16 @@ public class MySql implements MySqlInterface {
 
 		String sql = "SELECT* FROM " + this.person + " where ID= " + "'"
 				+ personId + "'";
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		Person person = null;
 		try {
 			result.next();
 			String personid = result.getString("ID");
 			person = new Person(personid, getSettings(personId));
-			result.close();
-			connectToMysql.closeConnection();
+			con.close();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -332,7 +342,10 @@ public class MySql implements MySqlInterface {
 //		String sql = "SELECT* FROM " + this.gps + " where ID= " + "'"
 //				+ personId + "'";
 	System.out.println(sql);
-		ResultSet result = connectToMysql.getSql(sql);
+	ResultSet result;
+	ConnectionParm con;
+	con = (connectToMysql.getSql(sql));
+	result = con.getRs();
 		Gps gps = null;
 		try {
 			result.next();
@@ -340,8 +353,7 @@ public class MySql implements MySqlInterface {
 					.getTime());
 			gps = new Gps(result.getDouble("ID"), result.getDouble("X"),
 					result.getDouble("Y"), date, getPerson(personId));
-			result.close();
-			 connectToMysql.closeConnection();
+			con.close();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -359,7 +371,10 @@ public class MySql implements MySqlInterface {
 
 		String sql = "SELECT* FROM " + this.settings + " where PersonId= "
 				+ "'" + personId + "'";
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		Settings settings = null;
 		try {
 			result.next();
@@ -370,8 +385,7 @@ public class MySql implements MySqlInterface {
 					result.getString("PhoneNumber"),
 					result.getString("Password"), dateTimeRegister,
 					result.getString("Mail"), personId);
-			result.close();
-			 connectToMysql.closeConnection();
+			con.close();
 			return settings;
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -396,7 +410,10 @@ public class MySql implements MySqlInterface {
 
 		String sql = "SELECT* FROM " + this.task + " where PersonId= " + "'"
 				+ personId + "'";
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 
 		ArrayList<Task> task = new ArrayList<Task>();
 		try {
@@ -418,17 +435,14 @@ public class MySql implements MySqlInterface {
 				}
 				task.add(t);
 			}
-		result.close();
-			 connectToMysql.closeConnection();
+			con.close();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		 System.out.println("array of gps");
-		
+		}		
 		return task;
 	}
 
@@ -480,7 +494,10 @@ public class MySql implements MySqlInterface {
 					+ " AND SmsTamplates= '" + Default.toString() + "'";
 		}
 		//System.out.println(sql);
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		ArrayList<SMS> sms = new ArrayList<SMS>();
 		try {
 
@@ -496,8 +513,8 @@ public class MySql implements MySqlInterface {
 						getPerson(result.getString("PersonId")));
 				sms.add(s);
 			}
-			result.close();
-			connectToMysql.closeConnection();
+			con.close();
+	
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -522,7 +539,10 @@ public class MySql implements MySqlInterface {
 					+ personId + "' AND SenderId= '" + sendId + "'"
 					+ " AND PopUpTamplates= '" + Default.toString() + "'";
 		}
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		ArrayList<PopUp> popUp = new ArrayList<PopUp>();
 		try {
 
@@ -539,8 +559,8 @@ public class MySql implements MySqlInterface {
 				p.setDateTimeShow(DateTimeSend);
 				popUp.add(p);
 			}
-			result.close();
-			 connectToMysql.closeConnection();
+			con.close();
+		
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -558,7 +578,10 @@ public class MySql implements MySqlInterface {
 
 		String sql = "SELECT* FROM " + this.sms + " where PersonId= " + "'"
 				+ personId + "' AND SenderId= 'default'";
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		ArrayList<SMS> sms = new ArrayList<SMS>();
 		try {
 			while (result.next()) {
@@ -573,9 +596,9 @@ public class MySql implements MySqlInterface {
 						getPerson(result.getString("PersonId")));
 				sms.add(s);
 			}
-			result.close();
-			 connectToMysql.closeConnection();
-
+			con.close();
+		
+		
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -597,8 +620,10 @@ public class MySql implements MySqlInterface {
 
 		String sql = "SELECT* FROM " + this.task + " where Start BETWEEN '"
 				+ DDate.toString() + "' AND '" + Date.toString() + "'";
-		//System.out.println(sql);
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 
 		ArrayList<Task> task = new ArrayList<Task>();
 		try {
@@ -622,8 +647,8 @@ public class MySql implements MySqlInterface {
 			 task.add(t);
 			
 			}
-			result.close();
-			 connectToMysql.closeConnection();
+			con.close();
+		
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -642,7 +667,10 @@ public class MySql implements MySqlInterface {
 
 		String sql = "SELECT* FROM " + this.popUp + " where PersonId= " + "'"
 				+ personId + "' AND SenderId= 'default'";
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		ArrayList<PopUp> popUp = new ArrayList<PopUp>();
 		try {
 
@@ -659,8 +687,8 @@ public class MySql implements MySqlInterface {
 				p.setDateTimeShow(DateTimeSend);
 				popUp.add(p);
 			}
-			result.close();
-			 connectToMysql.closeConnection();
+			con.close();
+	
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -686,8 +714,10 @@ public class MySql implements MySqlInterface {
 			sql = "SELECT* FROM " + this.sms + " where ID= " + "'"
 					+ sms + "'";
 		
-		//System.out.println(sql);
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		SMS smsNew = null;
 		try {
 			result.next();
@@ -700,9 +730,8 @@ public class MySql implements MySqlInterface {
 						result.getString("Message"),
 						getPerson(result.getString("SenderId")), DateTimeSend,
 						getPerson(result.getString("PersonId")));
-				result.close();
-				connectToMysql.closeConnection();
-
+				con.close();
+			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -718,7 +747,10 @@ public class MySql implements MySqlInterface {
 	public PopUp getPopUp(Double popUp) {
 		String sql = "SELECT* FROM " + this.popUp + " where ID= " + "'"
 				+ popUp + "'";
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		PopUp newPopUp = null;
 		try {
 
@@ -731,8 +763,8 @@ public class MySql implements MySqlInterface {
 						getPerson(result.getString("SenderId")),
 						getPerson(result.getString("PersonId")));
 				newPopUp.setDateTimeShow(DateTimeSend);
-				result.close();
-				connectToMysql.closeConnection();
+				con.close();
+			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -756,7 +788,10 @@ public class MySql implements MySqlInterface {
 	public boolean checkStatusFromDB(Double idTask) {
 		String sql = "SELECT* FROM " + this.task + " where ID= " + "'"
 				+ idTask + "'";
-		ResultSet result = connectToMysql.getSql(sql);
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
 		Boolean bool = null;
 		try {
 		result.next();
@@ -767,8 +802,8 @@ public class MySql implements MySqlInterface {
 			else{
 				bool=true;
 			}
-				result.close();
-				connectToMysql.closeConnection();
+			con.close();
+		
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -778,6 +813,38 @@ public class MySql implements MySqlInterface {
 		}
 		 System.out.println("get popup");
 		//return newPopUp;
+		return bool;
+	}
+
+	@Override
+	public Boolean signIn(String personId, String password) {
+
+		String sql = "SELECT* FROM " + this.settings + " where PersonId= "
+				+ "'" + personId + "'";
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
+		Boolean bool=false;
+		try {
+			
+			if(result.next()){
+			
+			if(password.equals(result.getString("Password"))){
+				bool = true;
+			}
+		}
+			con.close();
+			return bool;
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 System.out.println("get settings");
+	
 		return bool;
 	}
 

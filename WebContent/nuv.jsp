@@ -31,7 +31,7 @@
            <li role="presentation"><a href="GetTaskToDo.jsp">Get Person Task</a></li>
     <li role="presentation"><a href="GetTask.jsp">Get Task</a></li>
       <li role="presentation"><a href="Table.jsp">Table</a></li>
-    <li role="presentation"><a href="LogIn.jsp">Login</a></li>
+    <li role="presentation"><a href="CheckLogIn.jsp">Login</a></li>
      <li role="presentation"><a href="index.jsp">index</a></li>
 </ul>
 </body>

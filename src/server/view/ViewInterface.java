@@ -48,4 +48,6 @@ public interface ViewInterface {
 
 	 public ArrayList<Task> CheckSolutionForPerson(String person);
 
+	public Boolean signIn(String personId,String password);
+
 }
