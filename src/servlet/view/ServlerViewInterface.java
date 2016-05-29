@@ -6,6 +6,8 @@ import java.util.Date;
 import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
+import entities.pictures.Pictures;
+import entities.pictures.SharePictures;
 import entities.sms.SMS;
 import server.view.View;
 import server.view.ViewInterface;
@@ -116,6 +118,25 @@ public class ServlerViewInterface implements ViewInterface{
 	public Boolean signIn(String personId, String password) {
 	
 		return view.signIn(personId, password);
+	}
+
+	@Override
+	public ArrayList<Pictures> getPictures(String personId) {
+
+		return view.getPictures(personId);
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareUpdate(String person) {
+
+
+		return view.getShareUpdate(person);
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareSender(String person) {
+
+		return view.getShareSender(person);
 	}
 
 	

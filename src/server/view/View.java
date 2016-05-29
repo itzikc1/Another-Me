@@ -10,6 +10,8 @@ import entities.GPS.Gps;
 import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
+import entities.pictures.Pictures;
+import entities.pictures.SharePictures;
 import entities.sms.SMS;
 
 public class View implements ViewInterface, ControllerInterface {
@@ -161,6 +163,24 @@ public class View implements ViewInterface, ControllerInterface {
 	@Override
 	public Boolean signIn(String personId, String password) {
 		return controller.signIn(personId, password);
+	}
+
+	@Override
+	public ArrayList<Pictures> getPictures(String personId) {
+
+		return controller.getPictures(personId);
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareUpdate(String person) {
+
+		return controller.getShareUpdate(person);
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareSender(String person) {
+
+		return controller.getShareSender(person);
 	}
 
 }

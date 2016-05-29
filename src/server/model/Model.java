@@ -41,17 +41,17 @@ public class Model implements ModelInterface,Runnable {
 	 static String dictionaryLocationStreetCities="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/israelStreetsCities.txt";
 	 static	String dictionaryMissions="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/missions.txt";
 	 static	String clean="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/hebrewLanguage.txt";
-	
 	 private static SpellingCorrector singletonInstance;
 	 SpellingCorrector algo=  new SpellingCorrector(dictionaryLocationCityTwoRows, dictionaryLocationStreetCities, dictionaryMissions,clean);
+	 //to WAR file
+	 
+//	 static String dictionaryLocationCityTwoRows="israelCity.txt";
+//	 static String dictionaryLocationStreetCities="israelStreetsCities.txt";
+//	 static	String dictionaryMissions="missions.txt";
+//	 static	String clean="hebrewLanguage.txt";
+//	 private static SpellingCorrector singletonInstance;
+//	 SpellingCorrector algo=  new SpellingCorrector(dictionaryLocationCityTwoRows, dictionaryLocationStreetCities, dictionaryMissions,clean);
 
-//	public void readFromFile(){
-//		
-//
-//	}
-//	 public void SetController(Controller controller){
-//		  this.controller= controller;
-//	  }
 	@Override
 	public void CheckSolution() {
 		// get the time now (on server)
@@ -263,7 +263,7 @@ public class Model implements ModelInterface,Runnable {
 			System.out.println("now need to do ");
 			return 1;
 		}
-		return 0;
+		return 400;
 	}
 
 	@Override
@@ -273,10 +273,13 @@ public class Model implements ModelInterface,Runnable {
 		String[] afterAlgo = null;
 		String newAddress = address;
 		int newWhatToDo = whatToDo;
+		
 		if (start == null || address == null || whatToDo == 0) {
 			afterAlgo = Algo(taskText);
 			newAddress = Address(address, afterAlgo[0]);
+			if(!(afterAlgo[3] == null)){
 			newWhatToDo = whatToDo(whatToDo, Integer.parseInt(afterAlgo[3]));
+			}
 
 		}
 
@@ -347,6 +350,7 @@ public class Model implements ModelInterface,Runnable {
 
 						int timeToArrive = CalculatorTime(task.get(i), gps);						
 						int timeToGo =  TimeToGo(task.get(i),timeToArrive);
+						System.out.println(timeToGo);
 						if(timeToGo<=task.get(i).getSolution().getTimeToArriving()){
 						modelDb.changeStatusSolution("true", task.get(i).getIdTask());
 						taskToDo.add(task.get(i));

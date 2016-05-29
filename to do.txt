@@ -56,13 +56,15 @@ CREATE TABLE Test (ID DOUBLE NOT NULL,datetime datetime,X INT (50),Y INT (50),Pe
 
 CREATE TABLE Pictures (ID DOUBLE NOT NULL,PictureName VARCHAR (200),PersonId VARCHAR (30) NOT NULL,dateTime datetime,PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
 
+CREATE TABLE PicturesShare (ID DOUBLE NOT NULL,PictureName VARCHAR (200) NOT NULL,PersonId VARCHAR (30) NOT NULL,dateTime Datetime,withPerson VARCHAR (30),PicText VARCHAR (200),SendToPerson VARCHAR (30),PRIMARY KEY (ID)) DEFAULT CHARSET=UTF8;
+
 
 set global max_connections = 250;
 show variables like "%max_connections%";
 
 DROP TABLE Settings,Gps,Sms,PopUp,Task,Solution,Person
 DROP TABLE Sms,Task,Solution,PopUp
-
+DROP TABLE SharePictures
 	int idSolution;
 	Task task;
 	SMS sms;
@@ -83,3 +85,6 @@ WHERE ID='2';
  <listener>
    <listener-class>run.MainListener</listener-class>
 </listener>
+
+
+	

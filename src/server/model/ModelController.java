@@ -177,6 +177,24 @@ public class ModelController implements ModelControllerInterface {
 		return modelDb.signIn(personId, password);
 	}
 
+	@Override
+	public ArrayList<Pictures> getPictures(String personId) {
+
+		return modelDb.getPictures(personId);
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareUpdate(String person) {
+
+		return modelDb.getShareUpdate(person);
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareSender(String person) {
+
+		return modelDb.getShareSender(person);
+	}
+
 	
 
 

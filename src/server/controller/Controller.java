@@ -12,6 +12,8 @@ import entities.GPS.Gps;
 import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
+import entities.pictures.Pictures;
+import entities.pictures.SharePictures;
 import entities.sms.SMS;
 
 public class Controller implements ControllerInterface {
@@ -122,6 +124,24 @@ public class Controller implements ControllerInterface {
 	public Boolean signIn(String personId, String password) {
 
 		return model.signIn(personId, password);
+	}
+
+	@Override
+	public ArrayList<Pictures> getPictures(String personId) {
+
+		return model.getPictures(personId);
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareUpdate(String person) {
+
+		return model.getShareUpdate(person);
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareSender(String person) {
+
+		return model.getShareSender(person);
 	}
 
 

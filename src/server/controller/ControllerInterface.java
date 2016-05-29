@@ -7,6 +7,8 @@ import entities.GPS.Gps;
 import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
+import entities.pictures.Pictures;
+import entities.pictures.SharePictures;
 import entities.sms.SMS;
 
 // facade
@@ -27,6 +29,16 @@ public interface ControllerInterface {
 	public ArrayList<PopUp> getPopUp(String personId,String sendId,Boolean Default);//return all the popUp from user
 
 	public Boolean signIn(String personId,String password);
+	
+	public ArrayList<Pictures> getPictures(String personId);
+	
+	public ArrayList<Task> CheckSolutionForPerson(String person);
+	
+	public  ArrayList<SharePictures> getShareUpdate(String person);//download update of pic
+
+	public  ArrayList<SharePictures> getShareSender(String person);// get all shared pic and txt, to sender 
+
+
 	///////////////////////////////////////////////////////////////////////////////////////////
 	
 	public void addNewPersonFromView(String personId,
@@ -48,11 +60,10 @@ public interface ControllerInterface {
 	public void addPictures(String pictureName,String person,Date datePic);
 	
 	public void addPicturesToShare(String pictureName,String person,Date datePic,String personToSend,String txt);
-
-	public ArrayList<Task> CheckSolutionForPerson(String person);
-	
 	
 	
 
+
+	
 
 }

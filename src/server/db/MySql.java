@@ -230,13 +230,18 @@ public class MySql implements MySqlInterface {
 		connectToMysql.setSQL(sql);
 		
 	}
-	
+
 	@Override
 	public void addNewPicturesToShare(SharePictures sharePictures) {
-		// TODO Auto-generated method stub
-		
+		java.sql.Timestamp DateTime = new java.sql.Timestamp(
+				sharePictures.getDatePic().getTime());
+		String sql = "INSERT INTO "
+				+ this.picturesShare
+				+ " (ID,PictureName,PersonId,dateTime,withPerson,PicText,SendToPerson) VALUES ('"
+				+ sharePictures.getIdPictures() + "','" + sharePictures.getPictureName() + "','" + sharePictures.getPerson().getPersonId()
+				+ "','" +DateTime +"','"+sharePictures.getWithPerson().getPersonId()+ "','"+ sharePictures.getTxt() +"','"+sharePictures.getSendToPerson() +"')";
+		connectToMysql.setSQL(sql);
 	}
-
 	
 	@Override
 	public Task getTask(Date date, String personId) {
@@ -247,11 +252,11 @@ public class MySql implements MySqlInterface {
 				+ personId + "'" + " AND Start='" + start + "'";
 		
 		ResultSet result;
-		//= connectToMysql.getSql(sql);
 		ConnectionParm con;
 		con = (connectToMysql.getSql(sql));
 		result = con.getRs();
 		Task task = null;
+		Person person = getPerson(personId);
 		try {
 			result.next();
 			String taskText = result.getString("TaskText");
@@ -260,7 +265,7 @@ public class MySql implements MySqlInterface {
 			String address = result.getString("Address");
 			int whatToDo = result.getInt("WhatToDo");
 			int platform = result.getInt("Platform");
-			task = new Task(result.getDouble("ID"), getPerson(personId),
+			task = new Task(result.getDouble("ID"), person,
 					taskText, start, end, address, whatToDo, platform);
 			task.setWithPerson(getPerson(result.getString("WithPerson")));
 			con.close();
@@ -414,7 +419,7 @@ public class MySql implements MySqlInterface {
 		ConnectionParm con;
 		con = (connectToMysql.getSql(sql));
 		result = con.getRs();
-
+		Person person = getPerson(personId);
 		ArrayList<Task> task = new ArrayList<Task>();
 		try {
 			while (result.next()) {
@@ -427,7 +432,7 @@ public class MySql implements MySqlInterface {
 				String address = result.getString("Address");
 				int whatToDo = result.getInt("WhatToDo");
 				int platform = result.getInt("Platform");
-				t = new Task(result.getDouble("ID"), getPerson(personId),
+				t = new Task(result.getDouble("ID"),person,
 						taskText, start, end, address, whatToDo, platform);
 				t.setWithPerson(getPerson(result.getString("WithPerson")));
 				if (t.getWhatToDo() != 1) {
@@ -846,6 +851,111 @@ public class MySql implements MySqlInterface {
 		 System.out.println("get settings");
 	
 		return bool;
+	}
+
+	@Override
+	public ArrayList<Pictures> getPictures(String personId) {
+		String sql = "SELECT* FROM " + this.pictures + " where PersonId= " + "'"
+				+ personId + "'";
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
+		Person person = getPerson(personId);
+		ArrayList<Pictures> pictures = new ArrayList<Pictures>();
+		try {
+			while (result.next()) {
+				Pictures picture;
+				
+				java.util.Date dateTime = new java.sql.Timestamp(result.getTimestamp(
+						"dateTime").getTime());
+				picture = new Pictures(result.getDouble("ID"),result.getString("pictureName"),person,dateTime);	
+				pictures.add(picture);
+			}
+			con.close();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+
+		return pictures;
+	}
+	@Override
+	public ArrayList<SharePictures> getShareUpdate(String person) {
+		String sql = "SELECT* FROM " + this.picturesShare + " where withPerson= " + "'"
+				+ person + "' AND sendToPerson='false'";
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
+		Person personId = getPerson(person);
+		ArrayList<SharePictures> sharePictures = new ArrayList<SharePictures>();
+		try {
+			while (result.next()) {
+				SharePictures pictures;
+				Boolean bool = Boolean.parseBoolean(result
+						.getString("sendToPerson"));
+				
+				java.util.Date dateTime = new java.sql.Timestamp(result.getTimestamp(
+						"dateTime").getTime());
+				pictures = new SharePictures(result.getDouble("ID"),result.getString("pictureName"),getPerson(result.getString("PersonId")),dateTime,personId,result.getString("PicText"),bool);
+				sharePictures.add(pictures);
+			}
+			con.close();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+
+		return sharePictures;
+	}
+
+
+	@Override
+	public ArrayList<SharePictures> getShareSender(String person) {
+		String sql = "SELECT* FROM " + this.picturesShare + " where PersonId= " + "'"
+				+ person + "'";
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
+		Person personId = getPerson(person);
+		ArrayList<SharePictures> sharePictures = new ArrayList<SharePictures>();
+		try {
+			while (result.next()) {
+				SharePictures pictures;
+				Boolean bool = Boolean.parseBoolean(result
+						.getString("sendToPerson"));
+				
+				java.util.Date dateTime = new java.sql.Timestamp(result.getTimestamp(
+						"dateTime").getTime());
+				pictures = new SharePictures(result.getDouble("ID"),result.getString("pictureName"),personId,dateTime,	getPerson(result.getString("withPerson")),result.getString("PicText"),bool);
+				sharePictures.add(pictures);
+			}
+			con.close();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+
+		return sharePictures;
+	}
+
+	@Override
+	public void changeStatusShared(Double Share) {
+		String sql ="UPDATE " +this.picturesShare+ " SET SendToPerson= 'true' WHERE ID='"+Share+"'";
+		System.out.println(sql);
+		connectToMysql.setSQL(sql);
+		
 	}
 
 	

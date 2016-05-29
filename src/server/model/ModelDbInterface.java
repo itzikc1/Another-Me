@@ -46,7 +46,8 @@ public interface ModelDbInterface {
 	 
 	public void addNewPicturesToShare(SharePictures sharePictures);
 	
-	
+	public void changeStatusShared(Double Share);
+
 
 	// /////////////////////////////////get////////////////////////
 
@@ -81,6 +82,13 @@ public interface ModelDbInterface {
 	public Person getPerson(String personId);//return person with all data
 
 	public Boolean signIn(String personId,String password);
+
+	public ArrayList<Pictures> getPictures(String personId);
+	
+	public  ArrayList<SharePictures> getShareUpdate(String person);//download update of pic
+
+	public  ArrayList<SharePictures> getShareSender(String person);// get all shared pic and txt, to sender 
+
 
 	// ///////////////////////////GET ALL/////////////////////////////
 	public ArrayList<Person> getAllPersons();

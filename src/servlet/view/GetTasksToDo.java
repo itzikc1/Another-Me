@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Task.Task;
+import entities.pictures.SharePictures;
 
 /**
  * Servlet implementation class GetTasksToDo
@@ -46,10 +47,24 @@ public class GetTasksToDo extends HttpServlet {
 		
 		String personId = request.getParameter("name").toString();
 		
+		ArrayList<SharePictures> sharePictures = view.getShareSender(personId);
+		ArrayList<SharePictures> sharePicturesUpdate = view.getShareUpdate(personId);
+
+
 		ArrayList<Task> task = view.CheckSolutionForPerson(personId);
 
+		for (int z = 0; z < sharePictures.size(); z++) {		
+			System.out.println("pic to send "+sharePictures.get(z).getPictureName());
+					
+	 }
+		for (int z = 0; z < sharePicturesUpdate.size(); z++) {		
+			System.out.println("update "+sharePicturesUpdate.get(z).getPictureName());
+					
+	 }
 		for (int z = 0; z < task.size(); z++) {		
 			System.out.println(task.get(z).getTaskText());
+			
+			
 	 }
 		// response.sendRedirect("nuv.jsp");
 

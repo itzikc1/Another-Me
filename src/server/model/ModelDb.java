@@ -265,6 +265,34 @@ public class ModelDb implements ModelDbInterface {
 		return sql.signIn(personId, password);
 	}
 
+	@Override
+	public ArrayList<Pictures> getPictures(String personId) {
+
+		return sql.getPictures(personId);
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareUpdate(String person) {
+		 ArrayList<SharePictures> share = new  ArrayList<SharePictures>();
+		 share = sql.getShareUpdate(person);
+		for (int i = 0; i < share.size(); i++) {
+			changeStatusShared(share.get(i).getIdPictures());
+		}
+		 
+		return share;
+	}
+
+	@Override
+	public ArrayList<SharePictures> getShareSender(String person) {
+
+		return sql.getShareSender(person);
+	}
+
+	@Override
+	public void changeStatusShared(Double Share) {
+		sql.changeStatusShared(Share);
+	}
+
 	
 
 }

@@ -6,6 +6,8 @@ import java.util.Date;
 import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
+import entities.pictures.Pictures;
+import entities.pictures.SharePictures;
 import entities.sms.SMS;
 
 public interface ViewInterface {
@@ -25,6 +27,7 @@ public interface ViewInterface {
 			String personId);
 
 	public void addNewGpsLocationFromView(Double x, Double y, Date gpsDate, String personId);
+
 
 	// /////////////////////////////////get////////////////////////
 	
@@ -49,5 +52,12 @@ public interface ViewInterface {
 	 public ArrayList<Task> CheckSolutionForPerson(String person);
 
 	public Boolean signIn(String personId,String password);
+	
+	public ArrayList<Pictures> getPictures(String personId);
+
+	public  ArrayList<SharePictures> getShareUpdate(String person);//download update of pic
+
+	public  ArrayList<SharePictures> getShareSender(String person);// get all shared pic and txt, to sender 
+
 
 }
