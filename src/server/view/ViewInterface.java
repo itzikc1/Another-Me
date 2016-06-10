@@ -59,5 +59,6 @@ public interface ViewInterface {
 
 	public  ArrayList<SharePictures> getShareSender(String person);// get all shared pic and txt, to sender 
 
+	public Boolean checkIfPersonExists(String personId); 
 
 }

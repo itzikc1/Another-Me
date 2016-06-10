@@ -183,4 +183,11 @@ public class View implements ViewInterface, ControllerInterface {
 		return controller.getShareSender(person);
 	}
 
+	@Override
+	public Boolean checkIfPersonExists(String personId) {
+
+
+		return controller.checkIfPersonExists(personId);
+	}
+
 }

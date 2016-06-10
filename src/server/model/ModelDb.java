@@ -293,6 +293,13 @@ public class ModelDb implements ModelDbInterface {
 		sql.changeStatusShared(Share);
 	}
 
+	@Override
+	public Boolean checkIfPersonExists(String personId) {
+
+
+		return sql.checkIfPersonExists(personId);
+	}
+
 	
 
 }

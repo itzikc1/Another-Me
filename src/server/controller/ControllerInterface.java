@@ -38,7 +38,7 @@ public interface ControllerInterface {
 
 	public  ArrayList<SharePictures> getShareSender(String person);// get all shared pic and txt, to sender 
 
-
+	public Boolean checkIfPersonExists(String personId); 
 	///////////////////////////////////////////////////////////////////////////////////////////
 	
 	public void addNewPersonFromView(String personId,

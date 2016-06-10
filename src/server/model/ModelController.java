@@ -195,6 +195,13 @@ public class ModelController implements ModelControllerInterface {
 		return modelDb.getShareSender(person);
 	}
 
+	@Override
+	public Boolean checkIfPersonExists(String personId) {
+
+
+		return modelDb.checkIfPersonExists(personId);
+	}
+
 	
 
 

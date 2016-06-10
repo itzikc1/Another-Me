@@ -72,9 +72,19 @@ public class PersonServlet extends HttpServlet  {
          System.out.println(DateTimeRegister);
 		String phoneNumber = request.getParameter("phoneNumber").toString();
 
+		if(!view.checkIfPersonExists(personId)){
+		
+		
 		view.addNewPersonFromView(personId, password, DateTimeRegister, mail,
 				phoneNumber);
-		 //response.sendRedirect("nuv.jsp");
+		out.println("true");
+		}
+		else{
+			System.out.println("the id id exists");
+			out.println("false");
+			
+		}
+		
 
 	}
 

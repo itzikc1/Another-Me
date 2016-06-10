@@ -139,6 +139,13 @@ public class ServlerViewInterface implements ViewInterface{
 		return view.getShareSender(person);
 	}
 
+	@Override
+	public Boolean checkIfPersonExists(String personId) {
+
+
+		return view.checkIfPersonExists(personId);
+	}
+
 	
 		
 }

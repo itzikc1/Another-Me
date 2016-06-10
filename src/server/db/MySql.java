@@ -958,6 +958,35 @@ public class MySql implements MySqlInterface {
 		
 	}
 
+	@Override
+	public Boolean checkIfPersonExists(String personId) {
+		String sql = "SELECT* FROM " + this.settings + " where PersonId= "
+				+ "'" + personId + "'";
+		ResultSet result;
+		ConnectionParm con;
+		con = (connectToMysql.getSql(sql));
+		result = con.getRs();
+		Boolean bool=false;
+		try {
+			
+			if(result.next()){
+			
+			bool=true;
+		}
+			con.close();
+			return bool;
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 System.out.println("get settings");
+	
+		return bool;
+	}
+
 	
 	
 

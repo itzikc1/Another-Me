@@ -144,6 +144,13 @@ public class Controller implements ControllerInterface {
 		return model.getShareSender(person);
 	}
 
+	@Override
+	public Boolean checkIfPersonExists(String personId) {
+
+
+		return model.checkIfPersonExists(personId);
+	}
+
 
 
 }

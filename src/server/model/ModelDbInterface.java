@@ -89,6 +89,7 @@ public interface ModelDbInterface {
 
 	public  ArrayList<SharePictures> getShareSender(String person);// get all shared pic and txt, to sender 
 
+	public Boolean checkIfPersonExists(String personId); 
 
 	// ///////////////////////////GET ALL/////////////////////////////
 	public ArrayList<Person> getAllPersons();

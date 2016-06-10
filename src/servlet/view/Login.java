@@ -41,14 +41,15 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		System.out.println("Log In");
 		String personId = request.getParameter("userName").toString();
 		String password = request.getParameter("password").toString();
 		
-	
 		Boolean bool = view.signIn(personId, password);
 		System.out.println(bool);
-    
+		
 		response.sendRedirect("nuv.jsp");
+		out.println(bool);
 	}
 
 }
