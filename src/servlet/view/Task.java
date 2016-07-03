@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.text.DateFormat;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import entities.Task.PopUp;
 import entities.sms.SMS;
@@ -55,41 +59,83 @@ public class Task extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
+		  System.out.println("new task!!!!!");
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String personId = request.getParameter("personId").toString();
+		System.out.println(personId);
 		String address = request.getParameter("address").toString();
 		String txt = request.getParameter("txt").toString();
 		String withPerson = request.getParameter("withPerson").toString();
 		String popUpString = request.getParameter("popUp").toString();
 		String smsString = request.getParameter("sms").toString();
-		String actionString = request.getParameter("action").toString();		
+		String actionString = request.getParameter("action").toString();
+		String start = request.getParameter("start").toString();
+		String end = request.getParameter("end").toString();
+        long startMillisecond = Long.parseLong(start);
+        long endMillisecond = Long.parseLong(end);
+
+        Date s = new Date(startMillisecond);
+        Date en = new Date(endMillisecond);
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        //System.out.println(dateformat.format(s));
+		
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-		Date DateTimeStart = new Date();
-		DateTimeStart.setMinutes(DateTimeStart.getMinutes()+30);
-		Date DateTimeEnd = new Date();
-        DateTimeEnd.setMonth(8);  
-        Double sms=Double.valueOf(smsString);
-        Double popUp=Double.valueOf(popUpString);
+		
+		Date DateTimeStart = null;
+		Date DateTimeEnd = null;
+		try {
+			DateTimeStart = df.parse(dateformat.format(s));
+			DateTimeEnd = df.parse(dateformat.format(en));
+		} catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		Date DateTimeStart = new Date();
+		//DateTimeStart.setMinutes(DateTimeStart.getMinutes()+30);	
+		//Date DateTimeEnd = new Date();
+      //  DateTimeEnd.setMonth(8);  
+        
+        
+        Double sms;
+        Double popUp;
+        if(smsString.equals("null")){
+        	sms = 1.0;
+        }
+        else{
+        	sms=  Double.valueOf(smsString);
+
+        	
+        }
+   if(popUpString.equals("null")){
+	    popUp = 1.0;
+        }
+   else{
+	    popUp=Double.valueOf(popUpString);
+
+   }
+        
+      
         int platform=7;
         
-        if(address==""){
+        if(address.equals("null")){
         	address =null;
 		}
         int action;
-        if(actionString==""){
+        if(actionString.equals("null")){
         	action =0;
 		}
         else{
         	action=Integer.valueOf(actionString);
         }
         
-        if(withPerson==""){
+        if(withPerson.equals("null")){
         	withPerson ="noBodey";
 		}
 		view.addNewTaskFromView(personId, txt, DateTimeStart, DateTimeEnd, address, platform,withPerson,popUp,sms,action);
-		 response.sendRedirect("nuv.jsp");
+		// response.sendRedirect("nuv.jsp");
 
 	}
 

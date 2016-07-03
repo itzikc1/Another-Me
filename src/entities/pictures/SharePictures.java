@@ -1,12 +1,17 @@
 package entities.pictures;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import entities.person.Person;
 
-public class SharePictures {
+public class SharePictures implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Double idPictures;// id for pictures
 	private String pictureName;
 	private Person person;

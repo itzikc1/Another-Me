@@ -1,5 +1,7 @@
 package server.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -38,9 +40,17 @@ public class ModelController implements ModelControllerInterface {
 	 String senderId, String personId) {
 	 Double num;
 	 num=modelDb.numberOfColumn(sms,"ID");
-	
-	 SMS sms = new SMS(num, SmsTamplates, msg, getPerson(senderId), null,
-	 getPerson(personId));
+	 Person with=null;
+	 SMS sms = null;
+	 if(!senderId.equals("default")){
+		 with =addPersonFromOtherUser(personId, senderId);
+		  sms = new SMS(num, SmsTamplates, msg,with, null,
+				 getPerson(personId));
+	 }
+	 else{
+		  sms = new SMS(num, SmsTamplates, msg, getPerson(senderId), null,
+				 getPerson(personId));
+	 }
 	 modelDb.addSmsToDefault(sms, sms.getPerson());
 	 }
 	
@@ -91,7 +101,9 @@ public class ModelController implements ModelControllerInterface {
 	 Double num;
 	 num=modelDb.numberOfColumn(task,"ID");
 	 Person p = getPerson(personId);
-	 Person with = getPerson(withPerson);
+	 Person with =addPersonFromOtherUser(personId, withPerson);
+	 
+	 //Person with = getPerson(withPerson);
 	// String [] algo= model.Algo(taskText);
 	// Task task = new Task(num,p, taskText, start, end,algo[0], Integer.parseInt(algo[3]), platform);
 	 Task task = model.TaskMaker(num, p, taskText, start, end, address, action, platform);
@@ -160,8 +172,8 @@ public class ModelController implements ModelControllerInterface {
 			Date datePic, String personToSend, String txt) {
 		Double num;
 		 num=modelDb.numberOfColumn(picturesShare,"ID");
-		 
-		 SharePictures pictures = new SharePictures(num,pictureName, getPerson(person), datePic, getPerson(personToSend), txt, false);
+		 Person with =addPersonFromOtherUser(person, personToSend);		 
+		 SharePictures pictures = new SharePictures(num,pictureName, getPerson(person), datePic, with, txt, false);
 		 modelDb.addNewPicturesToShare(pictures);
 		
 	}
@@ -200,6 +212,31 @@ public class ModelController implements ModelControllerInterface {
 
 
 		return modelDb.checkIfPersonExists(personId);
+	}
+
+	@Override
+	public Person addPersonFromOtherUser(String personId, String other) {
+		 Boolean bool = checkIfPersonExists(other);
+		
+		 Person with =null;
+		 if(bool){
+			 with = getPerson(other);
+			 return with;
+		 }
+		 Boolean bool1 = checkIfPersonExists(other+"&"+personId);
+		  if(bool1){
+			 with = getPerson(other+"&"+personId);
+			 return with;
+		 }
+		 else{
+			 DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+				Date DateTimeRegister = new Date();
+		     addNewPersonFromView(other+"&"+personId,"111111", DateTimeRegister,"mail", "055");
+		     with = getPerson(other+"&"+personId);
+		     return with;
+		     
+		 }
+		
 	}
 
 	

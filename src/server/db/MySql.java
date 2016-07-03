@@ -103,7 +103,7 @@ public class MySql implements MySqlInterface {
 		
 		java.sql.Timestamp DateTimeRegister = new java.sql.Timestamp(person.getSettings().getDateTimeRegister().getTime());
 		
-		System.out.println(DateTimeRegister);
+		//System.out.println(DateTimeRegister);
 		String sql = "INSERT INTO "
 				+ this.settings
 				+ " (ID,FullName,PhoneNumber,Age,Password,DateTimeRegister,Mail,PersonId,PopUps,Sms,Solution,Gps) VALUES ('"
@@ -307,7 +307,7 @@ public class MySql implements MySqlInterface {
 			e.printStackTrace();
 		}
 
-		 System.out.println("get solution");
+		// System.out.println("get solution");
 		
 		return solution;
 	}
@@ -334,7 +334,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("get person");
+		// System.out.println("get person");
 	
 		return person;
 	}
@@ -346,7 +346,7 @@ public class MySql implements MySqlInterface {
 				
 //		String sql = "SELECT* FROM " + this.gps + " where ID= " + "'"
 //				+ personId + "'";
-	System.out.println(sql);
+	//System.out.println(sql);
 	ResultSet result;
 	ConnectionParm con;
 	con = (connectToMysql.getSql(sql));
@@ -366,7 +366,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("get gps");
+		// System.out.println("get gps");
 		
 		return gps;
 	}
@@ -399,7 +399,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("get settings");
+		// System.out.println("get settings");
 	
 		return settings;
 	}
@@ -527,7 +527,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("array of sms");
+		// System.out.println("array of sms");
 		
 		return sms;
 	}
@@ -573,7 +573,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("array of popup");
+		 //System.out.println("array of popup");
 		
 		return popUp;
 	}
@@ -611,7 +611,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("array of sms Default");
+		// System.out.println("array of sms Default");
 		return sms;
 	}
 
@@ -701,7 +701,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("array of popup default");
+		// System.out.println("array of popup default");
 		
 		return popUp;
 	}
@@ -744,7 +744,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("get sms");
+		// System.out.println("get sms");
 		return smsNew;
 	}
 
@@ -777,7 +777,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("get popup");
+		// System.out.println("get popup");
 		return newPopUp;
 	}
 
@@ -816,7 +816,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("get popup");
+		// System.out.println("get popup");
 		//return newPopUp;
 		return bool;
 	}
@@ -848,7 +848,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("get settings");
+		// System.out.println("get settings");
 	
 		return bool;
 	}
@@ -953,7 +953,7 @@ public class MySql implements MySqlInterface {
 	@Override
 	public void changeStatusShared(Double Share) {
 		String sql ="UPDATE " +this.picturesShare+ " SET SendToPerson= 'true' WHERE ID='"+Share+"'";
-		System.out.println(sql);
+		//System.out.println(sql);
 		connectToMysql.setSQL(sql);
 		
 	}
@@ -982,7 +982,7 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("get settings");
+	//	 System.out.println("get settings");
 	
 		return bool;
 	}

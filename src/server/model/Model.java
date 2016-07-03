@@ -141,7 +141,7 @@ public class Model implements ModelInterface,Runnable {
 	@Override
 	public void DoSolution(Task task) {
 	
-		modelDb.changeStatusSolution("true", task.getIdTask());
+		//modelDb.changeStatusSolution("true", task.getIdTask());
 		System.out.println("Do somthing!!!!");
 
 	}
@@ -345,14 +345,14 @@ public class Model implements ModelInterface,Runnable {
 		for (int i = 0; i < task.size(); i++) {
 			if ((task.get(i).getWhatToDo() != 1)&&!(checkStatus(task.get(i).getIdTask()))) {
 				
-					if(task.get(i).getAddress()!=null){
+					if(!task.get(i).getAddress().equals(null)&&!task.get(i).getAddress().equals("")){
 						Gps gps = getLastLocation(task.get(i).getPerson().getPersonId());//get last location
 
 						int timeToArrive = CalculatorTime(task.get(i), gps);						
 						int timeToGo =  TimeToGo(task.get(i),timeToArrive);
 						System.out.println(timeToGo);
 						if(timeToGo<=task.get(i).getSolution().getTimeToArriving()){
-						modelDb.changeStatusSolution("true", task.get(i).getIdTask());
+						//modelDb.changeStatusSolution("true", task.get(i).getIdTask());
 						taskToDo.add(task.get(i));
 					}
 				}

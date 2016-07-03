@@ -1,11 +1,16 @@
 package entities.pictures;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import entities.person.Person;
 
-public class Pictures {
+public class Pictures implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Double idpicture;// id for pictures
 	private String pictureName;
 	private Person person;

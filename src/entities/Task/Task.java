@@ -64,7 +64,7 @@ public class Task implements Serializable {
 
 	public void setPerson(Person person) {
 		this.person = person;
-		person.addtask(this);
+		//person.addtask(this);
 	}
 
 	public String getTaskText() {

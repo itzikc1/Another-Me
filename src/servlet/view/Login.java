@@ -39,6 +39,8 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		System.out.println("Log In");

@@ -40,14 +40,17 @@ public class AddPictureToShare extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String personId = request.getParameter("personId").toString();
 		String PicId = request.getParameter("pictureId").toString();
-		
+		String sendTo = request.getParameter("sendTo").toString();
+		String txt = request.getParameter("txt").toString();
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		Date dateTime = new Date();
-		
-		view.addPictures(PicId, personId, dateTime);
+		view.addPicturesToShare(PicId, personId, dateTime, sendTo,txt);
+		//view.addPictures(PicId, personId, dateTime);
 		 response.sendRedirect("nuv.jsp");
 
 	}

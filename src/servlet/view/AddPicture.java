@@ -40,6 +40,8 @@ public class AddPicture extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
 		PrintWriter out = response.getWriter();
 		String personId = request.getParameter("personId").toString();
 		String PicId = request.getParameter("pictureId").toString();
