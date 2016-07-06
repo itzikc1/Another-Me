@@ -2,28 +2,15 @@ package servlet.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import server.controller.Controller;
-import server.view.View;
-import server.view.ViewInterface;
-import entities.GPS.Gps;
-import entities.Task.PopUp;
-import entities.Task.Task;
-import entities.person.Settings;
-import entities.person.Person;
-import entities.sms.SMS;
 
 /**
  * Servlet implementation class View
@@ -36,7 +23,6 @@ public class PersonServlet extends HttpServlet  {
 	 * @see HttpServlet#HttpServlet()
 	 */
 
-	// private View view;
 	private ServlerViewInterface view;
 
 	public PersonServlet() {
@@ -64,7 +50,7 @@ public class PersonServlet extends HttpServlet  {
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String personId = request.getParameter("personId").toString();
-		System.out.println(personId+"  !!!!!!1");
+		System.out.println(personId+"  !");
 		String password = request.getParameter("password").toString();
 		String mail = request.getParameter("mail").toString();
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");

@@ -2,29 +2,21 @@ package server.model;
 
 
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.DateFormat;
-
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import javax.servlet.ServletContext;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.omg.CORBA.portable.InputStream;
 
-import server.controller.Controller;
 import entities.GPS.Gps;
-import entities.Solution.Solution;
 import entities.Task.Task;
 import entities.person.Person;
 
@@ -32,10 +24,8 @@ public class Model implements ModelInterface,Runnable {
 
 
 
-	//ModelControllerInterface modelController = new ModelController();
-	 //ModelDbInterface modelDb = new ModelDb();
+	
 	 ModelDb modelDb = new ModelDb();
-	// Controller controller;
 	 
 	 static String dictionaryLocationCityTwoRows="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/israelCity.txt";
 	 static String dictionaryLocationStreetCities="C:/Users/Itzik/workspaceAnother-Me/Another-Me/WebContent/WEB-INF/dataForAlgorithm/israelStreetsCities.txt";
@@ -113,7 +103,6 @@ public class Model implements ModelInterface,Runnable {
 		
 		String locationTask= task.getAddress();
 		
-		//String locationTask="אלי ויזל 20 ראשון לציון ישראל";
 		Double locationGpsX = gps.getX();
 		Double locationGpsY = gps.getY();
 		if( locationTask.equals("null")){
@@ -141,7 +130,7 @@ public class Model implements ModelInterface,Runnable {
 	@Override
 	public void DoSolution(Task task) {
 	
-		//modelDb.changeStatusSolution("true", task.getIdTask());
+		modelDb.changeStatusSolution("true", task.getIdTask());
 		System.out.println("Do somthing!!!!");
 
 	}
@@ -156,7 +145,6 @@ public class Model implements ModelInterface,Runnable {
 
 			
 			String end = URLEncoder.encode(task, "UTF-8");
-			// String num = "31.9735387,34.7945931";
 				
 			if (gps == null) {//with x,y location 
 				url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
@@ -233,7 +221,6 @@ public class Model implements ModelInterface,Runnable {
 // the string is: location, time, am/pm, action
 		try{
 		String[] features =new String[4];
-		//System.out.println("the text input to algo: "+task);
 		features=algo.parse(task);
 	
 		for(String feature:features){
@@ -274,27 +261,23 @@ public class Model implements ModelInterface,Runnable {
 		String newAddress = address;
 		int newWhatToDo = whatToDo;
 		
-		if (start == null || address == null || whatToDo == 0) {
+		if (start == null || address.equals("") || whatToDo == 0) {
 			afterAlgo = Algo(taskText);
 			newAddress = Address(address, afterAlgo[0]);
-			if(!(afterAlgo[3] == null)){
+			if(!(afterAlgo[3]==null)){
 			newWhatToDo = whatToDo(whatToDo, Integer.parseInt(afterAlgo[3]));
+			}
+			if(!(afterAlgo[1]==null)){
+				String[] time = afterAlgo[1].split(":");
+				int minutes = Integer.valueOf(time[1]);
+				int hour = Integer.valueOf(time[0]);
+			
+				start.setHours(hour);
+				start.setMinutes(minutes);
 			}
 
 		}
 
-		// if(start==null){
-		// DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-		// Date DateTimeRegister=null;
-		// try {
-		// DateTimeRegister = df.parse(afterAlgo[1]);
-		// } catch (java.text.ParseException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-
-		//System.out.println("the task: " + afterAlgo[3]);
 
 		Task task = new Task(idTask, person, taskText, start, end, newAddress,
 				newWhatToDo, platform);
@@ -305,7 +288,7 @@ public class Model implements ModelInterface,Runnable {
 
 	public int whatToDo(int old, int fromAlgo) {
 
-		if (old == 0) {
+		if (old == 1) {
 			return fromAlgo;
 
 		} else {
@@ -315,7 +298,7 @@ public class Model implements ModelInterface,Runnable {
 	}
 
 	public String Address(String old, String fromAlgo) {
-		if (old == null) {
+		if (old.equals("")) {
 			return fromAlgo;
 		} else {
 			return old;
@@ -352,7 +335,7 @@ public class Model implements ModelInterface,Runnable {
 						int timeToGo =  TimeToGo(task.get(i),timeToArrive);
 						System.out.println(timeToGo);
 						if(timeToGo<=task.get(i).getSolution().getTimeToArriving()){
-						//modelDb.changeStatusSolution("true", task.get(i).getIdTask());
+						modelDb.changeStatusSolution("true", task.get(i).getIdTask());
 						taskToDo.add(task.get(i));
 					}
 				}

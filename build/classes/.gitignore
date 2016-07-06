@@ -1,3 +1,4 @@
-/servlet/
-/server/
 /entities/
+/run/
+/server/
+/servlet/

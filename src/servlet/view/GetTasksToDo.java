@@ -3,9 +3,6 @@ package servlet.view;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,13 +16,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import entities.GPS.Gps;
-import entities.Solution.Solution;
-import entities.Task.PopUp;
 import entities.Task.Task;
-import entities.person.Person;
-import entities.pictures.SharePictures;
-import entities.sms.SMS;
 
 /**
  * Servlet implementation class GetTasksToDo
@@ -82,13 +73,15 @@ public class GetTasksToDo extends HttpServlet {
 						task.get(i).getSolution().getSms().getSenderId().setPersonId(parts[0]);	
 					}
 					ClientTask c = new ClientTask();
+					
 					c.setAddress(task.get(i).getAddress());
 					c.setDateTimeSend(task.get(i).getSolution().getSms().getDateTimeSend());
 					c.setDateTimeShow(task.get(i).getSolution().getPopUp().getDateTimeShow());
 					c.setEnd(task.get(i).getEnd());
 					c.setStart(task.get(i).getStart());
-					c.setPopup(task.get(i).getSolution().getPopUp().getText());
-					c.setSms(task.get(i).getSolution().getSms().getMsg());
+					c.setPopup(String.valueOf(task.get(i).getSolution().getPopUp().getIdPopUp().intValue()));
+					//c.setSms(task.get(i).getSolution().getSms().getMsg());
+					c.setSms(String.valueOf(task.get(i).getSolution().getSms().getIdSMS().intValue()));
 					c.setTaskText(task.get(i).getTaskText());
 					c.setTimeToArriving(task.get(i).getSolution().getTimeToArriving());
 					c.setWithPerson(task.get(i).getSolution().getSms().getSenderId().getPersonId());
@@ -100,40 +93,10 @@ public class GetTasksToDo extends HttpServlet {
 
 			taskMapper.writeValue(new File("task.json"), task);
 				// Convert object to JSON string
-				
-				//String taskString = taskMapper.writeValueAsString(task);
-
-				// Convert object to JSON string and pretty print
-				
-				//taskString = taskMapper.writerWithDefaultPrettyPrinter().writeValueAsString(task);
-				
-				//out.print(taskString);
+	
 			String taskString = taskMapper.writeValueAsString(clientTask);
 				out.print(taskString);
 
-				
-				
-//				n kk = new n();
-//				kk.setCc("hii");
-//				kk.setIt("or");
-//				
-//				itzik itt = new itzik();
-//				itt.setCc("hii");
-//				itt.setIt("or");
-//				itzik ittt = new itzik();
-//				ittt.setCc("hiiyy");
-//				ittt.setIt("oryy");
-//				itt.setTt(kk);
-//				ittt.setTt(kk);
-//				
-//				ArrayList<itzik> y = new ArrayList<itzik>();
-//				y.add(itt);
-//				y.add(ittt);
-//				
-//				String tt = taskMapper.writeValueAsString(y);
-//				out.print(tt);
-
-				
 			}
 			else{
 				taskMapper.writeValue(new File("task.json"), null);
@@ -160,26 +123,7 @@ public class GetTasksToDo extends HttpServlet {
 		}
 
 	}
-//	  public  class   itzik{
-//	        public String it;
-//	        public String cc;
-//
-//	     // public itzik(){}
-//	        public String getIt() {
-//	            return it;
-//	        }
-//	        public void setIt(String it) {
-//	            this.it = it;
-//	        }
-//	        public String getCc() {
-//	            return cc;
-//	        }
-//	        public void setCc(String cc) {
-//	            this.cc = cc;
-//	        }
-//	        
-//	    }
-	
+
 	 public  class  ClientTask{
 		 public	String taskText;
 		 public	Date start;

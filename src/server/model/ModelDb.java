@@ -3,7 +3,6 @@ package server.model;
 import java.util.ArrayList;
 import java.util.Date;
 
-import server.controller.ControllerInterface;
 import server.db.MySql;
 import entities.GPS.Gps;
 import entities.Solution.Solution;

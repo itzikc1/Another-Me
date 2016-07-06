@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +15,6 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import entities.Task.Task;
-import entities.person.Person;
 import entities.pictures.SharePictures;
 
 /**
@@ -51,9 +48,9 @@ public class GetShareToDo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
-		response.setContentType("application/json");
+		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+	
 		String personId = request.getParameter("name").toString();
 		ArrayList<SharePictures> sharePicturesUpdate = view
 				.getShareUpdate(personId);
@@ -76,21 +73,19 @@ public class GetShareToDo extends HttpServlet {
 					c.setPictureName(sharePicturesUpdate.get(i).getPictureName());
 					c.setTxt(sharePicturesUpdate.get(i).getTxt());
 					c.setWithPerson(sharePicturesUpdate.get(i).getWithPerson().getPersonId());
+					clientShare.add(c);
 				}
 				
 				
-				sharePicturesUpdateMapper.writeValue(new File(
-						"sharePicturesUpdate.json"), sharePicturesUpdate);
+				sharePicturesUpdateMapper.writeValue(new File("sharePicturesUpdate.json"), clientShare);
 				// Convert object to JSON string
-				String sharePicturesUpdateString = sharePicturesUpdateMapper
-						.writeValueAsString(sharePicturesUpdate);
+				String sharePicturesUpdateString = sharePicturesUpdateMapper.writeValueAsString(clientShare);
 
 				System.out.println("share Pictures Update :  "+sharePicturesUpdateString);
 
 				// Convert object to JSON string and pretty print
-				sharePicturesUpdateString = sharePicturesUpdateMapper
-						.writerWithDefaultPrettyPrinter().writeValueAsString(
-								sharePicturesUpdate);
+				sharePicturesUpdateString = sharePicturesUpdateMapper.writerWithDefaultPrettyPrinter().writeValueAsString(
+						clientShare);
 
 				out.print(sharePicturesUpdateString);
 			}

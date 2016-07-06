@@ -20,10 +20,10 @@ public class Solution implements Serializable {
 	public final static int Ask = 2;
 	public final static int PopUp = 3;
 	public final static int Sms = 4;
-	public final static int Ticket = 5;//movie
-	public final static int Shoping = 6;//Shopping
-	public final static int BabySiter = 7;//Babysitter
-	public final static int Meeting = 8;//meeting
+	public final static int Ticket = 5;// movie
+	public final static int Shoping = 6;// Shopping
+	public final static int BabySiter = 7;// Babysitter
+	public final static int Meeting = 8;// meeting
 	public final static int TIME = 15;
 
 	// /////////////////////////////
@@ -34,8 +34,7 @@ public class Solution implements Serializable {
 	PopUp popUp;
 	Person person;
 	int action;
-	int timeToArriving=TIME;
-
+	int timeToArriving = TIME;
 
 	public Solution(Double idSolution, Person person, Task task, SMS sms,
 			PopUp popUp, int action) {
@@ -103,6 +102,7 @@ public class Solution implements Serializable {
 	public Person getPerson() {
 		return person;
 	}
+
 	public int getTimeToArriving() {
 		return timeToArriving;
 	}
@@ -110,6 +110,5 @@ public class Solution implements Serializable {
 	public void setTimeToArriving(int timeToArriving) {
 		this.timeToArriving = timeToArriving;
 	}
-
 
 }

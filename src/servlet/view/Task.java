@@ -2,27 +2,15 @@ package servlet.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
 import java.text.DateFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.catalina.Session;
-
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
-import entities.Task.PopUp;
-import entities.sms.SMS;
 
 /**
  * Servlet implementation class Task
@@ -79,7 +67,6 @@ public class Task extends HttpServlet {
         Date s = new Date(startMillisecond);
         Date en = new Date(endMillisecond);
         SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-        //System.out.println(dateformat.format(s));
 		
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		
@@ -92,12 +79,6 @@ public class Task extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		Date DateTimeStart = new Date();
-		//DateTimeStart.setMinutes(DateTimeStart.getMinutes()+30);	
-		//Date DateTimeEnd = new Date();
-      //  DateTimeEnd.setMonth(8);  
-        
         
         Double sms;
         Double popUp;
@@ -135,7 +116,6 @@ public class Task extends HttpServlet {
         	withPerson ="noBodey";
 		}
 		view.addNewTaskFromView(personId, txt, DateTimeStart, DateTimeEnd, address, platform,withPerson,popUp,sms,action);
-		// response.sendRedirect("nuv.jsp");
 
 	}
 

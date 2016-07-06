@@ -1,5 +1,9 @@
 package server.db;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,13 +16,6 @@ import entities.person.Settings;
 import entities.pictures.Pictures;
 import entities.pictures.SharePictures;
 import entities.sms.SMS;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class MySql implements MySqlInterface {
 
@@ -73,7 +70,6 @@ public class MySql implements MySqlInterface {
 		ConnectionParm con;
 		con = (connectToMysql.getSql(sql));
 		result = con.getRs();
-		//result = (connectToMysql.getSql(sql));
 		Double num = 0.0;
 
 		try {
@@ -103,7 +99,6 @@ public class MySql implements MySqlInterface {
 		
 		java.sql.Timestamp DateTimeRegister = new java.sql.Timestamp(person.getSettings().getDateTimeRegister().getTime());
 		
-		//System.out.println(DateTimeRegister);
 		String sql = "INSERT INTO "
 				+ this.settings
 				+ " (ID,FullName,PhoneNumber,Age,Password,DateTimeRegister,Mail,PersonId,PopUps,Sms,Solution,Gps) VALUES ('"
@@ -131,7 +126,6 @@ public class MySql implements MySqlInterface {
 				+ " (ID,Date,X,Y,PersonId) VALUES ('" + gps.getIdGps() + "','"
 				+ GpsDate + "','" + gps.getX() + "','" + gps.getY() + "','"
 				+ gps.getPerson().getPersonId() + "')";
-		//System.out.println(sql);
 		connectToMysql.setSQL(sql);
 
 	}
@@ -285,7 +279,6 @@ public class MySql implements MySqlInterface {
 	public Solution getSolutionForTask(Task taskId) {
 		String sql = "SELECT* FROM " + this.solution + " where TaskId= " + "'"
 				+ taskId.getIdTask() + "'";
-		//System.out.println(sql);
 		ResultSet result;
 		ConnectionParm con;
 		con = (connectToMysql.getSql(sql));
@@ -306,8 +299,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// System.out.println("get solution");
 		
 		return solution;
 	}
@@ -334,7 +325,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("get person");
 	
 		return person;
 	}
@@ -344,9 +334,6 @@ public class MySql implements MySqlInterface {
 
 	String sql ="SELECT * FROM Gps  INNER JOIN(SELECT PersonId, MAX(Date) AS MaxDateTime FROM Gps where PersonId= '"+personId+"') grouped ON Gps.PersonId = grouped.PersonId AND Gps.Date = grouped.MaxDateTime";	
 				
-//		String sql = "SELECT* FROM " + this.gps + " where ID= " + "'"
-//				+ personId + "'";
-	//System.out.println(sql);
 	ResultSet result;
 	ConnectionParm con;
 	con = (connectToMysql.getSql(sql));
@@ -366,7 +353,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("get gps");
 		
 		return gps;
 	}
@@ -385,7 +371,6 @@ public class MySql implements MySqlInterface {
 			result.next();
 			java.util.Date dateTimeRegister = new java.sql.Timestamp(result
 					.getTimestamp("DateTimeRegister").getTime());
-			//System.out.println(result.getTimestamp("DateTimeRegister"));
 			settings = new Settings(result.getDouble("ID"),
 					result.getString("PhoneNumber"),
 					result.getString("Password"), dateTimeRegister,
@@ -399,7 +384,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("get settings");
 	
 		return settings;
 	}
@@ -498,7 +482,6 @@ public class MySql implements MySqlInterface {
 					+ personId + "' AND SenderId= '" + sendId + "'"
 					+ " AND SmsTamplates= '" + Default.toString() + "'";
 		}
-		//System.out.println(sql);
 		ResultSet result;
 		ConnectionParm con;
 		con = (connectToMysql.getSql(sql));
@@ -527,7 +510,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("array of sms");
 		
 		return sms;
 	}
@@ -573,7 +555,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 //System.out.println("array of popup");
 		
 		return popUp;
 	}
@@ -611,13 +592,11 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("array of sms Default");
 		return sms;
 	}
 
 	@Override
 	public ArrayList<Task> getAllTasksWithDate(Date date) {
-        //System.out.println("check Task time");
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		Date ddate = new Date();//from now
 		java.sql.Timestamp Date = new java.sql.Timestamp(date.getTime());
@@ -701,7 +680,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("array of popup default");
 		
 		return popUp;
 	}
@@ -744,7 +722,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("get sms");
 		return smsNew;
 	}
 
@@ -777,7 +754,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("get popup");
 		return newPopUp;
 	}
 
@@ -816,8 +792,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("get popup");
-		//return newPopUp;
 		return bool;
 	}
 
@@ -848,7 +822,6 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// System.out.println("get settings");
 	
 		return bool;
 	}
@@ -953,7 +926,6 @@ public class MySql implements MySqlInterface {
 	@Override
 	public void changeStatusShared(Double Share) {
 		String sql ="UPDATE " +this.picturesShare+ " SET SendToPerson= 'true' WHERE ID='"+Share+"'";
-		//System.out.println(sql);
 		connectToMysql.setSQL(sql);
 		
 	}
@@ -982,12 +954,10 @@ public class MySql implements MySqlInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	//	 System.out.println("get settings");
 	
 		return bool;
 	}
 
-	
 	
 
 }

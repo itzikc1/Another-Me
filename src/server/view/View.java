@@ -5,7 +5,6 @@ import java.util.Date;
 
 import server.controller.Controller;
 import server.controller.ControllerInterface;
-import servlet.view.ServlerViewInterface;
 import entities.GPS.Gps;
 import entities.Task.PopUp;
 import entities.Task.Task;
@@ -19,14 +18,7 @@ public class View implements ViewInterface, ControllerInterface {
 	
 		
 	Controller controller = new Controller();
-   // ServlerViewInterface servlerViewInterfac = new ServlerViewInterface();
-    
-   
-//  public void SetController(Controller controller,ServlerViewInterface servlerViewInterface ){
-//	  this.controller= controller;
-//	  this.servlerViewInterfac =servlerViewInterface;
-//  }
-    
+
     
 	@Override
 	public void addNewPersonFromView(String personId, String password,
@@ -129,15 +121,12 @@ public class View implements ViewInterface, ControllerInterface {
 	@Override
 	public void sendTaskWithSolution(Task task) {
 		// need to be with parameters of application
-		//sendTaskWithSolution(personId, taskText, start, end, platform, withPerson, popUp, sms, action);
 	}
 
 	@Override
 	public void sendTaskWithSolution(String personId, String taskText,
 			Date start, Date end, int platform, String withPerson,
 			Double popUp, Double sms, int action) {
-//		servlerViewInterfac.sendTaskWithSolution(personId, taskText, start,
-//				end, platform, withPerson, popUp, sms, action);
 
 	}
 

@@ -2,7 +2,6 @@ package entities.Task;
 
 import java.io.Serializable;
 
-
 import java.util.Date;
 
 import entities.person.Person;
@@ -20,13 +19,13 @@ public class PopUp implements Serializable {
 	Person senderId;// send popUp to other user
 	Person personId;
 
-	public PopUp(Double idPopUp, String text, boolean popUpTamplates,Person senderId,
-			Person personId) {
+	public PopUp(Double idPopUp, String text, boolean popUpTamplates,
+			Person senderId, Person personId) {
 		this.idPopUp = idPopUp;
 		this.text = text;
 		this.popUpTamplates = popUpTamplates;
 		this.personId = personId;
-		this.senderId=senderId;
+		this.senderId = senderId;
 	}
 
 	public void setPerson(Person person) {

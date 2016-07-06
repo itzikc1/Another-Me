@@ -1,8 +1,7 @@
 package server.model;
 
-import entities.Task.Task;
-import entities.person.Person;
 import server.controller.ControllerInterface;
+import entities.person.Person;
 
 public interface ModelControllerInterface extends ControllerInterface {
 		

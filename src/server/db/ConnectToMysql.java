@@ -2,16 +2,14 @@ package server.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 public class ConnectToMysql {
 
 	Connection conn;
 	Statement stmt;
-	//Statement statement;
+
 	public ConnectToMysql() {
 
 		this.conn = null;
@@ -32,26 +30,26 @@ public class ConnectToMysql {
 		String username = "root";
 		String password = "";
 		Class.forName(driver);
-		Connection conn = DriverManager.getConnection(url,username, password);
+		Connection conn = DriverManager.getConnection(url, username, password);
 		return conn;
 	}
 
 	public void setSQL(String st) {
 		try {
-			if((conn!=null)&&(stmt!=null)){
-			if(!conn.isClosed()){
-			conn.close();
-			}
-			if(!stmt.isClosed()){
-				stmt.close();
-			}			
+			if ((conn != null) && (stmt != null)) {
+				if (!conn.isClosed()) {
+					conn.close();
+				}
+				if (!stmt.isClosed()) {
+					stmt.close();
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			//System.out.println("i am here!!!!");
+			// System.out.println("i am here!!!!");
 			conn = getConnection();
 			stmt = conn.createStatement();
 			stmt.executeUpdate(st);
@@ -65,10 +63,10 @@ public class ConnectToMysql {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(!conn.isClosed()){
-				conn.close();
+				if (!conn.isClosed()) {
+					conn.close();
 				}
-				if(!stmt.isClosed()){
+				if (!stmt.isClosed()) {
 					stmt.close();
 				}
 			} catch (SQLException e) {
@@ -81,18 +79,15 @@ public class ConnectToMysql {
 	public ConnectionParm getSql(String st) {
 
 		ConnectionParm con = new ConnectionParm();
-	
-	
+
 		try {
 			con.setConn(getConnection());
 			con.setStmt(con.getConn().createStatement());
-	
-	
+
 			con.setRs(con.getStmt().executeQuery(st));
 			return con;
 
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("error: failed to get.");
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -100,8 +95,7 @@ public class ConnectToMysql {
 			e.printStackTrace();
 		}
 		return con;
-		
+
 	}
 
-	
 }

@@ -3,26 +3,19 @@ package servlet.view;
 import java.util.ArrayList;
 import java.util.Date;
 
+import server.view.View;
+import server.view.ViewInterface;
 import entities.Task.PopUp;
 import entities.Task.Task;
 import entities.person.Person;
 import entities.pictures.Pictures;
 import entities.pictures.SharePictures;
 import entities.sms.SMS;
-import server.view.View;
-import server.view.ViewInterface;
 
 public class ServlerViewInterface implements ViewInterface{
 
-	 
-	
 	
 	public View view = new View();
-	
-
-//	public void setView(View view){
-//		this.view = view;
-//	}
 	
 	@Override
 	public void addNewPersonFromView(String personId, String password,

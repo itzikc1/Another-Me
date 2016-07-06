@@ -2,7 +2,6 @@ package entities.sms;
 
 import java.io.Serializable;
 
-
 import java.util.Date;
 
 import entities.person.Person;

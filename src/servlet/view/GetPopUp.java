@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Task.PopUp;
-import entities.person.Person;
-import entities.sms.SMS;
 
 /**
  * Servlet implementation class GetSms
@@ -48,7 +46,6 @@ public class GetPopUp extends HttpServlet {
 		String sendId = request.getParameter("sendTo").toString();
 		String defaultt = request.getParameter("default").toString();
 		
-		//System.out.println(sendId);
 		Boolean bool = true;
 		if(sendId==""){
 			sendId ="default";

@@ -15,25 +15,25 @@ public class Settings implements Serializable {
 	String password;
 	Date DateTimeRegister;
 	String mail;
-	 String personId;
+	String personId;
 	Person person;
-	Boolean PopUps =true;
-	Boolean Sms=false;
-	Boolean Solution =true;
-	Boolean gps=true;
+	Boolean PopUps = true;
+	Boolean Sms = false;
+	Boolean Solution = true;
+	Boolean gps = true;
 
-	public Settings(Double idSettings, String phoneNumber,
-			String password, Date DateTimeRegister, String mail, String personId) {
+	public Settings(Double idSettings, String phoneNumber, String password,
+			Date DateTimeRegister, String mail, String personId) {
 		this.idSettings = idSettings;
 		this.phoneNumber = phoneNumber;
 		this.password = password;
 		this.DateTimeRegister = DateTimeRegister;
 		this.mail = mail;
-		this.personId=personId;
-		PopUps =true;
-		Sms=false;
-		Solution =true;
-		gps=true;
+		this.personId = personId;
+		PopUps = true;
+		Sms = false;
+		Solution = true;
+		gps = true;
 	}
 
 	public Double getIdSettings() {

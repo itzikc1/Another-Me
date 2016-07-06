@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import server.db.MySql;
 import entities.GPS.Gps;
 import entities.Solution.Solution;
 import entities.Task.PopUp;
@@ -19,9 +18,7 @@ import entities.sms.SMS;
 public class ModelController implements ModelControllerInterface {
 	ModelDbInterface modelDb = new ModelDb();
 	ModelInterface model = new Model();
-//	ModelDb modelDb = new ModelDb();
-//	Model model = new Model();
-		
+
 	String person = "Person";
 	String sms = "Sms";
 	String gps = "Gps";
@@ -102,21 +99,14 @@ public class ModelController implements ModelControllerInterface {
 	 num=modelDb.numberOfColumn(task,"ID");
 	 Person p = getPerson(personId);
 	 Person with =addPersonFromOtherUser(personId, withPerson);
-	 
-	 //Person with = getPerson(withPerson);
-	// String [] algo= model.Algo(taskText);
-	// Task task = new Task(num,p, taskText, start, end,algo[0], Integer.parseInt(algo[3]), platform);
 	 Task task = model.TaskMaker(num, p, taskText, start, end, address, action, platform);
 	 task.setWithPerson(with);
-		//String [] a= model.Algo(taskText);
-	 
 	 Double numm;
 	 numm=modelDb.numberOfColumn(solution,"ID");
 	 Solution solution=new Solution(numm, task.getPerson(), task,
 			 modelDb.getSms(sms),modelDb.getPopUp(popUp),task.getWhatToDo());
 	 solution.setToDo(task.getStart());
 	 task.setSolution(solution);
-	
 	 modelDb.addNewTask(task, task.getPerson());
 	 }
 	

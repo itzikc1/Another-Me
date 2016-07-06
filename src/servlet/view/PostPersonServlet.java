@@ -5,12 +5,10 @@ import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import entities.person.Person;
 
@@ -75,17 +73,6 @@ public class PostPersonServlet extends HttpServlet {
 		out.println(Sms);
 		out.println(Solution);
 		out.println(Gps);
-//		out.println("<html><body>");
-//		out.println("<p>" + person.getPersonId() + "</p>");
-//		out.println("<p>" + Mail + "</p>");
-//		out.println("<p>" + PhoneNumber + "</p>");
-//		out.println("<p>" + Age + "</p>");
-//		out.println("<p>" + DateTimeRegister + "</p>");
-//		out.println("<p>" + FullName + "</p>");
-//		out.println("<p>" + PopUps + "</p>");
-//		out.println("<p>" + Sms + "</p>");
-//		out.println("<p>" + Solution + "</p>");
-//		out.println("<p>" + Gps + "</p>");
-//		out.println("</body></html>");
+
 	}
 }

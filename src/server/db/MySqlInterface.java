@@ -2,10 +2,10 @@ package server.db;
 
 import java.util.ArrayList;
 
+import server.model.ModelDbInterface;
 import entities.Task.PopUp;
 import entities.person.Person;
 import entities.sms.SMS;
-import server.model.ModelDbInterface;
 
 public interface MySqlInterface extends ModelDbInterface {
 

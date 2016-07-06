@@ -50,7 +50,6 @@ public class AddPictureToShare extends HttpServlet {
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		Date dateTime = new Date();
 		view.addPicturesToShare(PicId, personId, dateTime, sendTo,txt);
-		//view.addPictures(PicId, personId, dateTime);
 		 response.sendRedirect("nuv.jsp");
 
 	}
